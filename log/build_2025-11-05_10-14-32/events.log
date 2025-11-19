@@ -1,0 +1,98 @@
+[0.000000] (-) TimerEvent: {}
+[0.000200] (satellite) JobQueued: {'identifier': 'satellite', 'dependencies': OrderedDict()}
+[0.000315] (satellite_battery) JobQueued: {'identifier': 'satellite_battery', 'dependencies': OrderedDict()}
+[0.000518] (satellite_manipulation_pkg) JobQueued: {'identifier': 'satellite_manipulation_pkg', 'dependencies': OrderedDict()}
+[0.000564] (satellite) JobStarted: {'identifier': 'satellite'}
+[0.002934] (satellite_battery) JobStarted: {'identifier': 'satellite_battery'}
+[0.004622] (satellite_manipulation_pkg) JobStarted: {'identifier': 'satellite_manipulation_pkg'}
+[0.007349] (satellite) JobProgress: {'identifier': 'satellite', 'progress': 'cmake'}
+[0.007655] (satellite) Command: {'cmd': ['/usr/bin/cmake', '/home/lianxin/Projects/SpaceMan_ws/spaceman/src/assets/urdf/satellite', '-DCATKIN_INSTALL_INTO_PREFIX_ROOT=0', '-DCMAKE_INSTALL_PREFIX=/home/lianxin/Projects/SpaceMan_ws/install/satellite'], 'cwd': '/home/lianxin/Projects/SpaceMan_ws/build/satellite', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('USER', 'lianxin'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/lianxin'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/lianxin/Projects/SpaceMan_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('SYSTEMD_EXEC_PID', '2373'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'lianxin'), ('_', '/home/lianxin/.local/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'lianxin'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/lianxin/.local/bin:/opt/ros/humble/bin:/home/lianxin/anaconda3/bin:/home/lianxin/anaconda3/condabin:/home/lianxin/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/lianxin-Kuangshi16Pro:@/tmp/.ICE-unix/2350,unix/lianxin-Kuangshi16Pro:/tmp/.ICE-unix/2350'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a671d4ba_7390_4811_b048_2cc6a2f925a6'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.107'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/home/lianxin/anaconda3/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/lianxin/anaconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/lianxin/Projects/SpaceMan_ws/build/satellite'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/lianxin/anaconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', '/home/lianxin/anaconda3'), ('GSETTINGS_SCHEMA_DIR_CONDA_BACKUP', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800')]), 'shell': False}
+[0.010120] (satellite_battery) JobProgress: {'identifier': 'satellite_battery', 'progress': 'cmake'}
+[0.010153] (satellite_battery) Command: {'cmd': ['/usr/bin/cmake', '/home/lianxin/Projects/SpaceMan_ws/spaceman/src/assets/urdf/satellite_battery', '-DCATKIN_INSTALL_INTO_PREFIX_ROOT=0', '-DCMAKE_INSTALL_PREFIX=/home/lianxin/Projects/SpaceMan_ws/install/satellite_battery'], 'cwd': '/home/lianxin/Projects/SpaceMan_ws/build/satellite_battery', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('USER', 'lianxin'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/lianxin'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/lianxin/Projects/SpaceMan_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('SYSTEMD_EXEC_PID', '2373'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'lianxin'), ('_', '/home/lianxin/.local/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'lianxin'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/lianxin/.local/bin:/opt/ros/humble/bin:/home/lianxin/anaconda3/bin:/home/lianxin/anaconda3/condabin:/home/lianxin/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/lianxin-Kuangshi16Pro:@/tmp/.ICE-unix/2350,unix/lianxin-Kuangshi16Pro:/tmp/.ICE-unix/2350'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a671d4ba_7390_4811_b048_2cc6a2f925a6'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.107'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/home/lianxin/anaconda3/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/lianxin/anaconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/lianxin/Projects/SpaceMan_ws/build/satellite_battery'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/lianxin/anaconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', '/home/lianxin/anaconda3'), ('GSETTINGS_SCHEMA_DIR_CONDA_BACKUP', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800')]), 'shell': False}
+[0.014654] (satellite_battery) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):\n'}
+[0.014812] (satellite_battery) StderrLine: {'line': b'  Compatibility with CMake < 2.8.12 will be removed from a future version of\n'}
+[0.014906] (satellite_battery) StderrLine: {'line': b'  CMake.\n'}
+[0.014991] (satellite_battery) StderrLine: {'line': b'\n'}
+[0.015074] (satellite_battery) StderrLine: {'line': b'  Update the VERSION argument <min> value or use a ...<max> suffix to tell\n'}
+[0.015156] (satellite_battery) StderrLine: {'line': b'  CMake that the project does not need compatibility with older versions.\n'}
+[0.015238] (satellite_battery) StderrLine: {'line': b'\n'}
+[0.015324] (satellite_battery) StderrLine: {'line': b'\x1b[0m\n'}
+[0.016277] (satellite) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):\n'}
+[0.016452] (satellite) StderrLine: {'line': b'  Compatibility with CMake < 2.8.12 will be removed from a future version of\n'}
+[0.016559] (satellite) StderrLine: {'line': b'  CMake.\n'}
+[0.016654] (satellite) StderrLine: {'line': b'\n'}
+[0.016746] (satellite) StderrLine: {'line': b'  Update the VERSION argument <min> value or use a ...<max> suffix to tell\n'}
+[0.016838] (satellite) StderrLine: {'line': b'  CMake that the project does not need compatibility with older versions.\n'}
+[0.016927] (satellite) StderrLine: {'line': b'\n'}
+[0.017016] (satellite) StderrLine: {'line': b'\x1b[0m\n'}
+[0.060246] (satellite_battery) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.060789] (satellite) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.095616] (satellite_battery) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.096287] (satellite) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.099184] (-) TimerEvent: {}
+[0.100806] (satellite_battery) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.101393] (satellite) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.146205] (satellite_battery) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.148291] (satellite) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.151215] (satellite_battery) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.151451] (satellite_battery) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.151500] (satellite_battery) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.153218] (satellite) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.153341] (satellite) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.154219] (satellite) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.154287] (satellite_battery) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.156238] (satellite) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.199488] (-) TimerEvent: {}
+[0.208240] (satellite) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.208415] (satellite_battery) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.213251] (satellite_battery) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.213409] (satellite_battery) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.213707] (satellite_battery) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.213980] (satellite) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.214067] (satellite) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.214157] (satellite) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.219603] (satellite_battery) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.219752] (satellite_battery) StdoutLine: {'line': b'See also "/home/lianxin/Projects/SpaceMan_ws/build/satellite_battery/CMakeFiles/CMakeOutput.log".\n'}
+[0.219819] (satellite_battery) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:5 (find_package):\n'}
+[0.220078] (satellite_battery) StderrLine: {'line': b'  By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[0.220137] (satellite_battery) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "catkin", but\n'}
+[0.220190] (satellite_battery) StderrLine: {'line': b'  CMake did not find one.\n'}
+[0.220241] (satellite_battery) StderrLine: {'line': b'\n'}
+[0.220292] (satellite_battery) StderrLine: {'line': b'  Could not find a package configuration file provided by "catkin" with any\n'}
+[0.220347] (satellite_battery) StderrLine: {'line': b'  of the following names:\n'}
+[0.220395] (satellite_battery) StderrLine: {'line': b'\n'}
+[0.220450] (satellite_battery) StderrLine: {'line': b'    catkinConfig.cmake\n'}
+[0.220507] (satellite_battery) StderrLine: {'line': b'    catkin-config.cmake\n'}
+[0.220559] (satellite_battery) StderrLine: {'line': b'\n'}
+[0.220611] (satellite_battery) StderrLine: {'line': b'  Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set\n'}
+[0.220663] (satellite_battery) StderrLine: {'line': b'  "catkin_DIR" to a directory containing one of the above files.  If "catkin"\n'}
+[0.220714] (satellite_battery) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.220781] (satellite_battery) StderrLine: {'line': b'  installed.\n'}
+[0.220835] (satellite_battery) StderrLine: {'line': b'\n'}
+[0.220881] (satellite_battery) StderrLine: {'line': b'\x1b[0m\n'}
+[0.220928] (satellite) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.220989] (satellite) StdoutLine: {'line': b'See also "/home/lianxin/Projects/SpaceMan_ws/build/satellite/CMakeFiles/CMakeOutput.log".\n'}
+[0.221042] (satellite) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:5 (find_package):\n'}
+[0.221135] (satellite) StderrLine: {'line': b'  By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[0.221244] (satellite) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "catkin", but\n'}
+[0.221317] (satellite) StderrLine: {'line': b'  CMake did not find one.\n'}
+[0.221758] (satellite) StderrLine: {'line': b'\n'}
+[0.221977] (satellite) StderrLine: {'line': b'  Could not find a package configuration file provided by "catkin" with any\n'}
+[0.222000] (satellite) StderrLine: {'line': b'  of the following names:\n'}
+[0.222023] (satellite) StderrLine: {'line': b'\n'}
+[0.222043] (satellite) StderrLine: {'line': b'    catkinConfig.cmake\n'}
+[0.222064] (satellite) StderrLine: {'line': b'    catkin-config.cmake\n'}
+[0.222088] (satellite) StderrLine: {'line': b'\n'}
+[0.222110] (satellite) StderrLine: {'line': b'  Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set\n'}
+[0.222133] (satellite) StderrLine: {'line': b'  "catkin_DIR" to a directory containing one of the above files.  If "catkin"\n'}
+[0.222155] (satellite) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.222176] (satellite) StderrLine: {'line': b'  installed.\n'}
+[0.222197] (satellite) StderrLine: {'line': b'\n'}
+[0.222219] (satellite) StderrLine: {'line': b'\x1b[0m\n'}
+[0.223501] (satellite_battery) CommandEnded: {'returncode': 1}
+[0.224819] (satellite) CommandEnded: {'returncode': 1}
+[0.235863] (satellite_battery) JobEnded: {'identifier': 'satellite_battery', 'rc': 1}
+[0.236037] (satellite) JobEnded: {'identifier': 'satellite', 'rc': 'SIGINT'}
+[0.299604] (-) TimerEvent: {}
+[0.328871] (satellite_manipulation_pkg) JobEnded: {'identifier': 'satellite_manipulation_pkg', 'rc': 'SIGINT'}
+[0.339080] (-) EventReactorShutdown: {}

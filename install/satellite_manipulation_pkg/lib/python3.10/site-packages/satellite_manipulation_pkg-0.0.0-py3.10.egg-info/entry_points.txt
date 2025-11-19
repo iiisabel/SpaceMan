@@ -1,0 +1,3 @@
+[console_scripts]
+satellite_onearm_node = satellite_manipulation_pkg.satellite_onearm_node:main
+

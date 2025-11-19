@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/remote_control_pkg/remote_control_pkg.egg-info/PKG-INFO
+../../build/remote_control_pkg/remote_control_pkg.egg-info/SOURCES.txt
+../../build/remote_control_pkg/remote_control_pkg.egg-info/dependency_links.txt
+../../build/remote_control_pkg/remote_control_pkg.egg-info/entry_points.txt
+../../build/remote_control_pkg/remote_control_pkg.egg-info/requires.txt
+../../build/remote_control_pkg/remote_control_pkg.egg-info/top_level.txt
+../../build/remote_control_pkg/remote_control_pkg.egg-info/zip-safe
+remote_control_pkg/__init__.py
+remote_control_pkg/keyboard_control_node.py
+resource/remote_control_pkg
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
