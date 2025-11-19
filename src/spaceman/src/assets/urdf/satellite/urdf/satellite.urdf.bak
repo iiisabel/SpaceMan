@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="satellite" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <link name="base_link">
+    <inertial>
+      <origin
+        xyz="0.10106 -0.035329 0.077989"
+        rpy="0 0 0" />
+      <mass
+        value="2033.4" />
+      <inertia
+        ixx="1247.2"
+        ixy="-46.734"
+        ixz="25.188"
+        iyy="1152.9"
+        iyz="-10.391"
+        izz="913.45" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://satellite/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://satellite/textures/3.png" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://satellite/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_Link">
+    <inertial>
+      <origin
+        xyz="4.8572E-16 -2.9005E-15 -0.07437"
+        rpy="0 0 0" />
+      <mass
+        value="812.47" />
+      <inertia
+        ixx="3662.9"
+        ixy="-6.7748E-07"
+        ixz="-9.5225E-13"
+        iyy="3143.1"
+        iyz="1.2981E-12"
+        izz="520.78" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://satellite/meshes/right_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://satellite/textures/5.png" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://satellite/meshes/right_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_joint" type="fixed">
+    <origin
+      xyz="0.0075184 -4.5591 0.0015235"
+      rpy="1.5708 -0.8237 0" />
+    <parent link="base_link" />
+    <child link="right_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="left_Link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://satellite/meshes/left_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+        <texture
+          filename="package://satellite/textures/5.png" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://satellite/meshes/left_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_joint" type="fixed">
+    <origin
+      xyz="0.0044704 4.5591 -0.0015245"
+      rpy="-1.5708 -0.8237 0" />
+    <parent link="base_link" />
+    <child link="left_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="attachment">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.0"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+  </link>
+  <joint name="fix_joint" type="fixed">
+    <!-- <origin rpy="0 -1.57 0" xyz="-1.8288 0.0 0.0"/> -->
+    <origin rpy="0 -1.57 0" xyz="-0.9144 0.0 1.4"/>
+    <parent link="base_link"/>
+    <child link="attachment"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+</robot>
