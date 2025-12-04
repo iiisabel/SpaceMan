@@ -16,6 +16,7 @@ from utils.utils import convert_dict_to_tensors
 from configs.asset_configs import FRANKA_CONFIG
 from controllers.smooth_IK_solver import SmoothIKSolver
 
+# Attention : this version is used to test satellite_combine_panda.urdf
 class Franka(Robot):
     def __init__(
         self,
@@ -36,7 +37,7 @@ class Franka(Robot):
         
         ### state
         self.end_effector = self.robot.get_link("panda_hand")
-        self.base = self.robot.get_link("panda_link0")
+        self.base = self.robot.get_link("satellite_base_link")
         self.config = convert_dict_to_tensors(FRANKA_CONFIG, self.datatype, self.device)
 
         # baselink_state = self._base_state.global_state
@@ -118,14 +119,8 @@ class Franka(Robot):
             end_effector=self.end_effector,
             smooth_factor=0.3, 
             max_joint_change=0.05,
-            pos_tolerance=1e-4,
-            quat_tolerance=1e-4
         )
-
-        # Initialize target's position and attitude
-        self.target_pos, self.target_quat = None, None
-        self.target_handopen = True
-        self.duration_time = 1  # velocity duration time /s
+        # There some parameters are deleted, no need to give default value.
 
     
     def set_config(self, config):
