@@ -6,8 +6,8 @@ import xml.etree.ElementTree as ET
 
 class URDFMerger:
     def __init__(self, urdf1_path, urdf2_path):
-        # Force it under 'spaceman'
-        output_dir = root_path /f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}"
+        # Force it under './src/spaceman/src/assets/urdf'
+        output_dir = asset_path/'urdf'/f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}"
         os.makedirs(output_dir, exist_ok=True)
 
         self.output_dir = output_dir
