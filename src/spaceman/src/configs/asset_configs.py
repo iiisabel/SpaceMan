@@ -8,11 +8,13 @@ asset_path = root_path / 'src' / 'assets'
 # path -> forward-slash string for URDF loaders
 to_posix = lambda p: p.as_posix()
 
+# Attention to this : now test satellie_combine_panda on franka.py
+_s_urdf = root_path / 'satellite_combine_panda' / 'satellite_combine_panda.urdf'
 # lazy factory; constructs after gs.init()
 def _make_franka_urdf():
     return {
         "morph": gs.morphs.URDF(
-            file="urdf/panda_bullet/panda.urdf",
+            file=to_posix(_s_urdf),   # file="urdf/panda_bullet/panda.urdf",
             pos=(-0.3, 0.0, 0.0),
             euler=(0, 0, 0),
             merge_fixed_links=False,
@@ -52,7 +54,7 @@ def _make_satellite():
         "morph": gs.morphs.URDF(
             file=to_posix(_satellite_urdf),
             scale=5e-1,
-            merge_fixed_links=True,
+            merge_fixed_links=False,
             fixed=False,
         ),
         "material": gs.materials.Rigid(
