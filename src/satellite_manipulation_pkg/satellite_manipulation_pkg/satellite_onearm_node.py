@@ -71,10 +71,10 @@ class SatelliteOneArm(Node):
         from robots.robot import Robot
         self.satellite = Robot(name="satellite")
         
-        try:
-            self.gsim.scene.link_entities(self.satellite.robot, self.franka.robot, "attachment", "panda_link0")
-        except:
-            pass
+        # try:
+        #     self.gsim.scene.link_entities(self.satellite.robot, self.franka.robot, "attachment", "panda_link0")
+        # except:
+        #     pass
 
         self.device = self.gsim.device
         self.datatype = self.gsim.datatype

@@ -8,8 +8,9 @@ asset_path = root_path / 'src' / 'assets'
 # path -> forward-slash string for URDF loaders
 to_posix = lambda p: p.as_posix()
 
+# 保留franka,同函数给新的继承类
 # Attention to this : now test satellie_combine_panda on franka.py
-_s_urdf = root_path / 'satellite_combine_panda' / 'satellite_combine_panda.urdf'
+_s_urdf = asset_path / 'urdf' / 'satellite_combine_panda' / 'satellite_combine_panda.urdf'
 # lazy factory; constructs after gs.init()
 def _make_franka_urdf():
     return {

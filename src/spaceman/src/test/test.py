@@ -82,7 +82,7 @@ def main():
         # satellite.apply_force(force=[0.0,0.0,10.0], torque=[0.0,0.0,1000.0],link_name='base')
         franka.step()
         GS.step()
-        if not GS.viewer.is_alive(): # 
+        if not GS.viewer.is_alive(): #
             print("Viewer window has been closed.")
             break
 

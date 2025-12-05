@@ -16,7 +16,7 @@ class URDFMerger:
         os.makedirs(self.meshes_dir, exist_ok=True)
         os.makedirs(self.textures_dir, exist_ok=True)
 
-    def _scale_robot(self, root, prefix_name, scale_factor=5.0):
+    def _scale_robot(self, root, prefix_name, child_con, scale_factor=5.0):
         print(f"\n=== SCALING ROBOT2 BY FACTOR {scale_factor} ===")
         
         scale_factor_3 = scale_factor ** 3  # 体积
@@ -290,6 +290,9 @@ class URDFMerger:
                         mimic.set('joint', f"{urdf2_name}_{mimic.get('joint')}" if not mimic.get('joint').startswith(urdf2_name) else mimic.get('joint'))
             root.append(elem)
 
+        if scale_robot is not None:
+            self._scale_robot(root, urdf2_name, child_link, scale_robot)
+
         connection_joint = ET.SubElement(root, 'joint', {
             'name': f"{urdf1_name}_{urdf2_name}_connection_joint", 
             'type': 'fixed'
@@ -307,9 +310,6 @@ class URDFMerger:
             'xyz': connection_xyz,
             'rpy': connection_rpy
         })
-
-        if scale_robot is not None:
-            self._scale_robot(root, urdf2_name, scale_robot)
 
         copied_files = self._copy_used_resources(root, urdf1_path, urdf2_path)
         self._update_resource_paths(root)
@@ -342,7 +342,7 @@ merged_urdf_path = urdf_merger.merge_urdfs(
     output_name = f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}",
     parent_link = 'attachment',
     child_link = 'panda_link0',
-    connection_xyz = '0 0 1.0',
+    connection_xyz = '-1 0 0',
     connection_rpy = '0 0 0',
     scale_robot = 3.0
 )

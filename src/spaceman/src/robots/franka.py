@@ -16,6 +16,7 @@ from utils.utils import convert_dict_to_tensors
 from configs.asset_configs import FRANKA_CONFIG
 from controllers.smooth_IK_solver import SmoothIKSolver
 
+# 新的继承类，继承franka
 # Attention : this version is used to test satellite_combine_panda.urdf
 class Franka(Robot):
     def __init__(
