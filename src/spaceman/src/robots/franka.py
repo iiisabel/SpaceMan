@@ -16,8 +16,6 @@ from utils.utils import convert_dict_to_tensors
 from configs.asset_configs import FRANKA_CONFIG
 from controllers.smooth_IK_solver import SmoothIKSolver
 
-# 新的继承类，继承franka
-# Attention : this version is used to test satellite_combine_panda.urdf
 class Franka(Robot):
     def __init__(
         self,
@@ -26,8 +24,9 @@ class Franka(Robot):
         backends=[]
     ):
         # Initialize the Robot object, and add robot to backends
+        # Let FrankaMerge be able to have own posix
         super().__init__(
-            name="franka", 
+            name=name, 
             sensors=sensors,
             backends=backends
             )
@@ -38,7 +37,7 @@ class Franka(Robot):
         
         ### state
         self.end_effector = self.robot.get_link("panda_hand")
-        self.base = self.robot.get_link("satellite_base_link")
+        self.base = self.robot.get_link("panda_link0")
         self.config = convert_dict_to_tensors(FRANKA_CONFIG, self.datatype, self.device)
 
         # baselink_state = self._base_state.global_state
