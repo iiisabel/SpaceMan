@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="starlink">
+  <link
+    name="base_star_link">
+    <inertial>
+      <origin
+        xyz="0.064043 0.049818 0.075117"
+        rpy="0 0 0" />
+      <mass
+        value="365.27" />
+      <inertia
+        ixx="166.05"
+        ixy="0.9609"
+        ixz="-0.9195"
+        iyy="43.737"
+        iyz="0.18316"
+        izz="207.92" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://starlink/meshes/base_star_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://starlink/textures/1.png" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://starlink/meshes/base_star_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="panel_Link">
+    <inertial>
+      <origin
+        xyz="0.18387 4.5116E-05 0.0089121"
+        rpy="0 0 0" />
+      <mass
+        value="146.07" />
+      <inertia
+        ixx="45.09"
+        ixy="7.5802E-12"
+        ixz="-2.6455E-06"
+        iyy="9.2979"
+        iyz="-4.89E-13"
+        izz="54.377" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://starlink/meshes/panel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://starlink/textures/5.png" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://starlink/meshes/panel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="panel"
+    type="fixed">
+    <origin
+      xyz="3.1501 0.12613 0.143"
+      rpy="0 0 0" />
+    <parent
+      link="base_star_link" />
+    <child
+      link="panel_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

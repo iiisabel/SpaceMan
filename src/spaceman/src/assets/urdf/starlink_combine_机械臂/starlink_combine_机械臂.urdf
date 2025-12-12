@@ -1,0 +1,435 @@
+<?xml version="1.0" ?>
+<robot name="starlink_combine_机械臂">
+  <link name="starlink_base_star_link">
+    <inertial>
+      <origin xyz="0.064043 0.049818 0.075117" rpy="0 0 0"/>
+      <mass value="365.27"/>
+      <inertia ixx="166.05" ixy="0.9609" ixz="-0.9195" iyy="43.737" iyz="0.18316" izz="207.92"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/base_star_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+        <texture filename="./textures/1.png"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/base_star_link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="starlink_panel_Link">
+    <inertial>
+      <origin xyz="0.18387 4.5116E-05 0.0089121" rpy="0 0 0"/>
+      <mass value="146.07"/>
+      <inertia ixx="45.09" ixy="7.5802E-12" ixz="-2.6455E-06" iyy="9.2979" iyz="-4.89E-13" izz="54.377"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/panel_Link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+        <texture filename="./textures/5.png"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/panel_Link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="starlink_panel" type="fixed">
+    <origin xyz="3.1501 0.12613 0.143" rpy="0 0 0"/>
+    <parent link="starlink_base_star_link"/>
+    <child link="starlink_panel_Link"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="机械臂_base_link">
+    <inertial>
+      <origin xyz="0.1050000391408104 -0.770123991611868 0.05077538688393504" rpy="0 0 0"/>
+      <mass value="2.080967403453504"/>
+      <inertia ixx="0.009193472106664857" ixy="-3.962441295101589e-08" ixz="1.3379569434193902e-10" iyy="0.009193250114742535" iyz="3.2419205618954345e-18" izz="0.010668217572020798"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/base_link.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/base_link.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="机械臂_Link1">
+    <inertial>
+      <origin xyz="-0.060141842175474 -0.002067847510152528 0.104550210813291" rpy="0 0 0"/>
+      <mass value="1.1177824453436707"/>
+      <inertia ixx="0.002365629706244421" ixy="0.0001989048690739512" ixz="4.4053989711255855e-05" iyy="0.004079512483559413" iyz="-4.189674858307616e-06" izz="0.003402721818066399"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link1.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link1.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint1" type="revolute">
+    <origin xyz="0.105 -0.7701239916160499 0.1080000000000126" rpy="0 0 -1.5707963267949"/>
+    <parent link="机械臂_base_link"/>
+    <child link="机械臂_Link1"/>
+    <axis xyz="0 0 -1"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link2">
+    <inertial>
+      <origin xyz="0.2800631839204722 -0.01204075251545358 0.3937674881340894" rpy="0 0 0"/>
+      <mass value="1.0944091402151377"/>
+      <inertia ixx="0.026988885565555672" ixy="8.129876044387839e-07" ixz="-0.0178285468843056" iyy="0.03894062496402364" iyz="1.1541283574546368e-06" izz="0.014602640624739895"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link2.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link2.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint2" type="revolute">
+    <origin xyz="-0.119999999999823 -0.0984119999999676 0.1079999999995944" rpy="0 0 0"/>
+    <parent link="机械臂_Link1"/>
+    <child link="机械臂_Link2"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link3">
+    <inertial>
+      <origin xyz="-0.159870710397336 -0.0476548392506028 0.22900673038286398" rpy="0 0 0"/>
+      <mass value="0.6694854403638433"/>
+      <inertia ixx="0.011594479364642299" ixy="-1.477111461934562e-06" ixz="0.007601709858493312" iyy="0.01705397851295453" iyz="2.1188956667673804e-06" izz="0.006012150605117954"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link3.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link3.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint3" type="revolute">
+    <origin xyz="0.4173123894383922 0.1314120000002838 0.586728531453288" rpy="0 0 0"/>
+    <parent link="机械臂_Link2"/>
+    <child link="机械臂_Link3"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link4">
+    <inertial>
+      <origin xyz="0.02038665962660886 -0.0653567159549664 -3.009198223935528e-09" rpy="0 0 0"/>
+      <mass value="0.2857940753340153"/>
+      <inertia ixx="0.00031396999221123455" ixy="2.22626209965649e-07" ixz="-3.723347374052391e-12" iyy="0.00019886707703077282" iyz="-1.9678018984610034e-11" izz="0.0003038500622957394"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link4.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link4.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint4" type="revolute">
+    <origin xyz="-0.2799123894308418 -0.1266599999010702 0.4009614124181688" rpy="0 0 0"/>
+    <parent link="机械臂_Link3"/>
+    <child link="机械臂_Link4"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link5">
+    <inertial>
+      <origin xyz="0.0700922969414466 -0.02333148088170558 5.6991387763716234e-05" rpy="0 0 0"/>
+      <mass value="0.3232766369439453"/>
+      <inertia ixx="0.00028149958834859564" ixy="2.2331853008314516e-07" ixz="-5.853941793132635e-10" iyy="0.0003197782967101846" iyz="1.6984624828739454e-07" izz="0.0003864819804987579"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link5.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link5.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint5" type="revolute">
+    <origin xyz="0.0947999999922654 -0.106200000107286 0.0" rpy="0 0 0"/>
+    <parent link="机械臂_Link4"/>
+    <child link="机械臂_Link5"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link6">
+    <inertial>
+      <origin xyz="1.368589255563714e-05 -0.01924843221738762 -3.2233277140747435e-07" rpy="0 0 0"/>
+      <mass value="0.04879089667259618"/>
+      <inertia ixx="1.5573469251104077e-05" ixy="8.749306765112387e-09" ixz="-6.924852573034451e-10" iyy="1.0451675784403172e-05" iyz="-3.797805092854349e-11" izz="1.3670827609307721e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link6.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link6.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint6" type="revolute">
+    <origin xyz="0.1061999999943918 -0.1007996968814946 0.0002471991114829206" rpy="-0.00245237457649197 0 0"/>
+    <parent link="机械臂_Link5"/>
+    <child link="机械臂_Link6"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link7">
+    <inertial>
+      <origin xyz="-0.00010888684072196699 -0.019046899781386382 0.02388384865665636" rpy="0 0 0"/>
+      <mass value="0.0068981411423250415"/>
+      <inertia ixx="1.5636442028193218e-06" ixy="2.4322515429418676e-10" ixz="-6.892085318634177e-11" iyy="3.9619844482255744e-07" iyz="4.805079623059099e-07" izz="1.4835937842596029e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link7.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link7.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint7" type="revolute">
+    <origin xyz="0.0 -0.0327978 0.018360599999999998" rpy="0 0 0"/>
+    <parent link="机械臂_Link6"/>
+    <child link="机械臂_Link7"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+    <mimic joint="机械臂_joint8" multiplier="1" offset="0"/>
+  </joint>
+  <link name="机械臂_Link8">
+    <inertial>
+      <origin xyz="-3.0009935191799275e-05 -0.02629617746734086 0.0181103148839955" rpy="0 0 0"/>
+      <mass value="0.005448926013115333"/>
+      <inertia ixx="1.307038017625001e-06" ixy="-1.6488655247438497e-12" ixz="1.1911322233287137e-12" iyy="6.173144553558938e-07" iyz="5.894298257319867e-07" izz="1.0646527582139954e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link8.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link8.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint8" type="revolute">
+    <origin xyz="0.0 -0.0367068 0.007619999999999999" rpy="0 0 0"/>
+    <parent link="机械臂_Link6"/>
+    <child link="机械臂_Link8"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="45" effort="0" velocity="0"/>
+  </joint>
+  <link name="机械臂_Link11">
+    <inertial>
+      <origin xyz="-0.0001200000122648424 0.00108886123350531 0.005080647327527556" rpy="0 0 0"/>
+      <mass value="0.001559431355844836"/>
+      <inertia ixx="5.088652303527422e-08" ixy="-9.490955819308621e-17" ixz="-5.15370109358076e-14" iyy="5.037492522612108e-08" iyz="-1.1978208481430295e-08" izz="3.276964246141939e-08"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link11.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link11.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint11" type="revolute">
+    <origin xyz="0.0 -0.049430999999999996 0.034008" rpy="0 0 0"/>
+    <parent link="机械臂_Link8"/>
+    <child link="机械臂_Link11"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+    <mimic joint="机械臂_joint8" multiplier="-1" offset="0"/>
+  </joint>
+  <link name="机械臂_Link9">
+    <inertial>
+      <origin xyz="-3.000967127544384e-05 -0.028922694834999478 -0.01352590950580692" rpy="0 0 0"/>
+      <mass value="0.005448926184348578"/>
+      <inertia ixx="1.3070381097257334e-06" ixy="-1.84907571880169e-12" ixz="-8.148629549775678e-13" iyy="4.358946233254878e-07" iyz="-4.830717912411341e-07" izz="1.246072690353781e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link9.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link9.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint9" type="revolute">
+    <origin xyz="0.0 -0.0367068 -0.007619999999999999" rpy="0 0 0"/>
+    <parent link="机械臂_Link6"/>
+    <child link="机械臂_Link9"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+    <mimic joint="机械臂_joint8" multiplier="1" offset="0"/>
+  </joint>
+  <link name="机械臂_Link12">
+    <inertial>
+      <origin xyz="1.175393116170654e-11 0.001088861134154616 -0.005080647282113616" rpy="0 0 0"/>
+      <mass value="0.00155943138219943"/>
+      <inertia ixx="5.088652459017143e-08" ixy="9.495302324599752e-17" ixz="-5.14786652726423e-14" iyy="5.037492563186296e-08" iyz="1.1978208962163455e-08" izz="3.276964330328158e-08"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link12.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link12.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint12" type="revolute">
+    <origin xyz="0.0 -0.0543378 -0.0254436" rpy="0 0 0"/>
+    <parent link="机械臂_Link9"/>
+    <child link="机械臂_Link12"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+    <mimic joint="机械臂_joint9" multiplier="1" offset="0"/>
+  </joint>
+  <link name="机械臂_Link10">
+    <inertial>
+      <origin xyz="1.638707312112684e-06 -0.02270495633756166 -0.02043786492607704" rpy="0 0 0"/>
+      <mass value="0.006898151118959027"/>
+      <inertia ixx="1.5636474746782574e-06" ixy="-2.511655133647182e-10" ixz="-2.807101392159337e-11" iyy="2.700006006220772e-07" iyz="-2.788082924532002e-07" izz="1.609796087604288e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link10.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./meshes/Link10.STL" scale="0.6 0.6 0.6"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="机械臂_joint10" type="revolute">
+    <origin xyz="0.0 -0.0327978 -0.018360599999999998" rpy="0 0 0"/>
+    <parent link="机械臂_Link6"/>
+    <child link="机械臂_Link10"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+    <mimic joint="机械臂_joint9" multiplier="-1" offset="0"/>
+  </joint>
+  <joint name="starlink_机械臂_connection_joint" type="fixed">
+    <parent link="starlink_base_star_link"/>
+    <child link="机械臂_base_link"/>
+    <origin xyz="-0.2 1.95 0" rpy="0 0 0"/>
+  </joint>
+</robot>
