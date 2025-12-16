@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'keyboard_control_node = remote_control_pkg.keyboard_control_node:main'
+            'master_control_node = remote_control_pkg.master_control_node:main'
         ],
     },
 )

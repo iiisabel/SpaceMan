@@ -38,24 +38,27 @@ class FrankaMerge(Franka):
         self.franka_name = name
         self._scene = GenesisSim().scene
         
-        self.end_effector = self.robot.get_link("panda_hand")
-        self.base = self.robot.get_link("satellite_base_link")
+        self.end_effector = self.robot.get_link("qf_space_manipulator_Link6")
+        self.base = self.robot.get_link("starlink_base_star_link")
         
-        # Choose to keep or modify
+        # Need to modify FRANKA_CONFIG for starlink_combine_qf_space_manipulator
         self.config = convert_dict_to_tensors(FRANKA_CONFIG, self.datatype, self.device)
 
         self.ee_state = TwoLinkState(device=self.device)
         
         self.joints_name = (
-            "panda_joint1",
-            "panda_joint2",
-            "panda_joint3",
-            "panda_joint4",
-            "panda_joint5",
-            "panda_joint6",
-            "panda_joint7",
-            "panda_finger_joint1",
-            "panda_finger_joint2",
+            "qf_space_manipulator_joint1",
+            "qf_space_manipulator_joint2",
+            "qf_space_manipulator_joint3",
+            "qf_space_manipulator_joint4",
+            "qf_space_manipulator_joint5",
+            "qf_space_manipulator_joint6",
+            "qf_space_manipulator_joint7",
+            "qf_space_manipulator_joint8",
+            "qf_space_manipulator_joint9",
+            "qf_space_manipulator_joint10",
+            "qf_space_manipulator_joint11",
+            "qf_space_manipulator_joint12",
         )
         
         try:
@@ -75,8 +78,8 @@ class FrankaMerge(Franka):
             )
             motors_dof_idx = [self.robot.get_joint(name).dofs_idx_local[0] for name in self.joints_name]
         
-        self.motors_dof = motors_dof_idx[:7]
-        self.fingers_dof = motors_dof_idx[7:9]
+        self.motors_dof = motors_dof_idx[:6]
+        self.fingers_dof = motors_dof_idx[6:12]
         
         self.finger_open = torch.tensor([0.04, 0.04], dtype=self.datatype, device=self.device)
         self.finger_close = torch.tensor([0.0, 0.0], dtype=self.datatype, device=self.device)

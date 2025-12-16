@@ -75,8 +75,7 @@ def _make_satellite_part():
         ),
     }
 
-_merge_urdf = asset_path / 'urdf' / 'satellite_combine_panda' / 'satellite_combine_panda.urdf'
-
+_merge_urdf = asset_path / 'urdf' / 'starlink_combine_qf_space_manipulator' / 'starlink_combine_qf_space_manipulator.urdf'
 def _make_franka_merge():
     return {
         "morph": gs.morphs.URDF(

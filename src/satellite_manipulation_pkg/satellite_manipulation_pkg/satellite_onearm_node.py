@@ -7,6 +7,7 @@ import torch
 
 import rclpy
 from rclpy.node import Node
+from sensor_msgs.msg import JointState
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from std_msgs.msg import Header, Float64
 
@@ -27,8 +28,8 @@ class SatelliteOneArm(Node):
         
         # create end effector pose publisher
         self.ee_state_pub = self.create_publisher(
-            PoseStamped,
-            '/ee_pose_broadcaster/global_pose',
+            JointState,
+            '/wx250s/jointstate',
             10
         )
 
