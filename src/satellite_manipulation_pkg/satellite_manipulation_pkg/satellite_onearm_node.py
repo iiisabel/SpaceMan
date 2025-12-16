@@ -28,8 +28,8 @@ class SatelliteOneArm(Node):
         
         # create end effector pose publisher
         self.ee_state_pub = self.create_publisher(
-            JointState,
-            '/wx250s/jointstate',
+            PoseStamped,
+            '/ee_pose_broadcaster/global_pose',
             10
         )
 

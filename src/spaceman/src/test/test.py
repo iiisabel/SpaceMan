@@ -77,13 +77,10 @@ def main():
     # franka.initialize()
     # satellite.initialize()
     # satellite.show_info()
-    # try:
-    #     GS.scene.link_entities(satellite.robot, franka.robot, "attachment", "panda_link0")
-    # except:
-    #     pass
+    joint_pos = [0, 0, 0, 0, 0, 0]
 
     while True:
-        franka_merge.apply_force(force=[0.0,0.0,10.0], torque=[0.0,0.0,1000.0],link_name='satellite_base_link')
+        franka_merge.control_joint_pos(joint_pos)
         # franka.step()
         franka_merge.step()
         GS.step()

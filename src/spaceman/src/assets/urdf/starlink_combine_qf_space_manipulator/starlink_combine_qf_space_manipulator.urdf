@@ -126,7 +126,7 @@
     </collision>
   </link>
   <joint name="qf_space_manipulator_joint2" type="revolute">
-    <origin xyz="-0.119999999999823 -0.0984119999999676 0.1079999999995944" rpy="0 0 0"/>
+    <origin xyz="-0.119999999999823 -0.0984119999999676 0.1079999999995944" rpy="0 -0.61 0"/>
     <parent link="qf_space_manipulator_Link1"/>
     <child link="qf_space_manipulator_Link2"/>
     <axis xyz="0 -1 0"/>
@@ -155,7 +155,7 @@
     </collision>
   </link>
   <joint name="qf_space_manipulator_joint3" type="revolute">
-    <origin xyz="0.4173123894383922 0.1314120000002838 0.586728531453288" rpy="0 0 0"/>
+    <origin xyz="0.4173123894383922 0.1314120000002838 0.586728531453288" rpy="0 -0.37 0"/>
     <parent link="qf_space_manipulator_Link2"/>
     <child link="qf_space_manipulator_Link3"/>
     <axis xyz="0 1 0"/>
@@ -184,7 +184,7 @@
     </collision>
   </link>
   <joint name="qf_space_manipulator_joint4" type="revolute">
-    <origin xyz="-0.2799123894308418 -0.1266599999010702 0.4009614124181688" rpy="0 0 0"/>
+    <origin xyz="-0.2799123894308418 -0.1266599999010702 0.4009614124181688" rpy="0 -2.25 0"/>
     <parent link="qf_space_manipulator_Link3"/>
     <child link="qf_space_manipulator_Link4"/>
     <axis xyz="0 1 0"/>
@@ -213,7 +213,7 @@
     </collision>
   </link>
   <joint name="qf_space_manipulator_joint5" type="revolute">
-    <origin xyz="0.0947999999922654 -0.106200000107286 0.0" rpy="0 0 0"/>
+    <origin xyz="0.0947999999922654 -0.106200000107286 0.0" rpy="-1.6 0 0"/>
     <parent link="qf_space_manipulator_Link4"/>
     <child link="qf_space_manipulator_Link5"/>
     <axis xyz="-1 0 0"/>
@@ -430,6 +430,6 @@
   <joint name="starlink_qf_space_manipulator_connection_joint" type="fixed">
     <parent link="starlink_base_star_link"/>
     <child link="qf_space_manipulator_base_link"/>
-    <origin xyz="-0.2 1.95 0" rpy="0 0 0"/>
+    <origin xyz="-0.87 1.05 0" rpy="0 0 1.574"/>
   </joint>
 </robot>

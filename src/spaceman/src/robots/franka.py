@@ -206,11 +206,11 @@ class Franka(Robot):
         
         # Compute joints' angles under global frame
         qpos = self.IK.solve(position, quaternion)
-        # print("Target command: ", qpos)
+        print("Target command: ", qpos)
         
         # Check for NaN values
         if torch.isnan(qpos).any():
-            self.get_logger().warn("IK solution contains NaN values, skipping joint control")
+            print("IK solution contains NaN values, skipping joint control")
             return False
 
         # Control joints' dofs
@@ -223,7 +223,7 @@ class Franka(Robot):
             
             return True
         except Exception as e:
-            self.get_logger().error(f"Failed to set joint positions: {e}")
+            print(f"Failed to set joint positions: {e}")
             return False
         
     def control_gripper(self, gripper_open):
@@ -238,7 +238,7 @@ class Franka(Robot):
             if not isinstance(gripper_open, bool):
                 gripper_open = bool(gripper_open)
                 if hasattr(self, 'get_logger'):
-                    self.get_logger().info(f"Converted gripper_open to boolean: {gripper_open}")
+                    print(f"Converted gripper_open to boolean: {gripper_open}")
             
             # Determine target finger state
             finger_state = self.finger_open if gripper_open else self.finger_close
@@ -257,7 +257,7 @@ class Franka(Robot):
             # Log the error
             error_msg = f"Failed to control gripper: {e}"
             if hasattr(self, 'get_logger'):
-                self.get_logger().error(error_msg)
+                print(error_msg)
             else:
                 print(f"ERROR: {error_msg}")
             

@@ -342,8 +342,8 @@ merged_urdf_path = urdf_merger.merge_urdfs(
     output_name = f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}",
     parent_link = 'base_star_link',
     child_link = 'base_link',
-    connection_xyz = '-0.2 1.95 0',
-    connection_rpy = '0 0 0',
+    connection_xyz = '-0.87 1.05 0',
+    connection_rpy = '0 0 1.574',
     scale_robot = 0.6
 )
 

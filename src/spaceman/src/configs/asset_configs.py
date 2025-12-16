@@ -1,7 +1,11 @@
+import sys
 from pathlib import Path
 import genesis as gs
 
 current_file_path = Path(__file__).resolve().parent
+sys.path.append(str(current_file_path))
+from configs.config_starlink_manipulator import FRANKA_S_Q_CONFIG, _make_starlink_manipulator
+
 root_path = current_file_path.parent.parent
 asset_path = root_path / 'src' / 'assets'
 
@@ -75,25 +79,10 @@ def _make_satellite_part():
         ),
     }
 
-_merge_urdf = asset_path / 'urdf' / 'starlink_combine_qf_space_manipulator' / 'starlink_combine_qf_space_manipulator.urdf'
-def _make_franka_merge():
-    return {
-        "morph": gs.morphs.URDF(
-            file=to_posix(_merge_urdf),
-            pos=(-0.3, 0.0, 0.0),
-            euler=(0.0, 0.0, 0.0),
-            merge_fixed_links=False,
-            fixed=False,
-        ),
-        "material": gs.materials.Rigid(
-            gravity_compensation=1.0,
-        ),
-    }
-
 _ASSET_FACTORIES = {
     "franka": _make_franka_urdf,
     "satellite": _make_satellite,
-    "franka_merge":_make_franka_merge,
+    "franka_merge":_make_starlink_manipulator,
     # "satellite_part": _make_satellite_part,
     # "franka_mjcf": _make_franka_mjcf,
 }
