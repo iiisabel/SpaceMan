@@ -37,7 +37,7 @@ class FrankaMerge(Franka):
         self.franka_name = name
         self._scene = GenesisSim().scene
         
-        self.end_effector = self.robot.get_link("qf_space_manipulator_Link6")
+        self.end_effector = self.robot.get_link("qf_space_manipulator_2F-Body_Link")
         self.base = self.robot.get_link("starlink_base_star_link")
         
         # Need to modify FRANKA_CONFIG for starlink_combine_qf_space_manipulator
@@ -47,53 +47,32 @@ class FrankaMerge(Franka):
         
         self.joints_name = (
             # "root_joint",
-            "qf_space_manipulator_joint1",
-            "qf_space_manipulator_joint2",
-            "qf_space_manipulator_joint3",
-            "qf_space_manipulator_joint4",
-            "qf_space_manipulator_joint5",
-            "qf_space_manipulator_joint6",
-            # "qf_space_manipulator_joint7",
-            # "qf_space_manipulator_joint8",
-            # "qf_space_manipulator_joint9",
-            # "qf_space_manipulator_joint10",
-            # "qf_space_manipulator_joint11",
-            # "qf_space_manipulator_joint12",
+            "qf_space_manipulator_Shoulder_link_1_yaw",
+            "qf_space_manipulator_Upper_arm_Link_1_roll",
+            "qf_space_manipulator_Mid_arm_Link_1_roll",
+            "qf_space_manipulator_Upper_wrist_Link_1_yaw",
+            "qf_space_manipulator_Upper_wrist_Link_2_roll",
+            "qf_space_manipulator_2F-Body_Link_pitch", 
+            # hand
+            "qf_space_manipulator_Finger1_2_Link_roll",
+            "qf_space_manipulator_Finger3_2_Link_roll", # all gripper joints mimic this
+            "qf_space_manipulator_Finger3_1_Link_roll",
+            "qf_space_manipulator_Finger1_1_Link_roll", # the only positive mutiplier
+            "qf_space_manipulator_Finger4_2_Link_roll",
+            "qf_space_manipulator_Finger4_1_Link_roll"
         )
         
         motors_dof_idx = [self.robot.get_joint(name).dofs_idx_local[0] for name in self.joints_name]
 
         self.motors_dof = motors_dof_idx[:6]
-        self.fingers_dof = motors_dof_idx[6:12]
+        self.fingers_dof = motors_dof_idx[6:]
+
+        self.config_gripper_joints = torch.tensor([-1, 1, -1, 1, -1, -1])
         
-        self.finger_open = torch.tensor([0.04, 0.04], dtype=self.datatype, device=self.device)
-        self.finger_close = torch.tensor([0.0, 0.0], dtype=self.datatype, device=self.device)
+        self.finger_open = torch.tensor(-0.2, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
+        self.finger_close = torch.tensor(0.4, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
         self.gripper_state = True  # True for hand open
     
-    def set_config(self, config):
-        """
-        重写set_config，只对Franka的DOF（索引6-14）应用配置
-        卫星DOF（索引0-5）保持默认
-        """
-        def to_list(x):
-            if isinstance(x, torch.Tensor):
-                return x.detach().cpu().tolist()
-            if isinstance(x, (np.ndarray, list, tuple)):
-                return list(x)
-            return [float(x)]
-        
-        kp    = to_list(config["control"]["kp"])
-        kv    = to_list(config["control"]["kv"])
-        frmin = to_list(config["control"]["force_range_min"])
-        frmax = to_list(config["control"]["force_range_max"])
-        init  = to_list(config["initial_dofs"])
-        
-        self.robot.set_dofs_kp(kp, dofs_idx_local=self.motors_dof + self.fingers_dof)
-        self.robot.set_dofs_kv(kv, dofs_idx_local=self.motors_dof + self.fingers_dof)
-        self.robot.set_dofs_force_range(frmin, frmax, dofs_idx_local=self.motors_dof + self.fingers_dof)
-        self.robot.set_dofs_position(init, dofs_idx_local=self.motors_dof + self.fingers_dof)
-        self.robot.set_dofs_velocity([0.0] * len(init), dofs_idx_local=self.motors_dof + self.fingers_dof)
-
 
     def control_joint_pos(self, joint_position):
         """
@@ -129,4 +108,42 @@ class FrankaMerge(Franka):
             return True
         except Exception as e:
             print(f"Failed to set joint positions: {e}")
+            return False
+
+    def control_gripper(self, gripper_open, gripper_value):
+        """
+        Control the gripper to open or close.
+        Args:
+            gripper_open: bool or value that can be converted to bool
+                        True to open gripper, False to close
+        """
+        try:
+            # Ensure input is boolean
+            if not isinstance(gripper_open, bool):
+                gripper_open = bool(gripper_open)
+                if hasattr(self, 'get_logger'):
+                    print(f"Converted gripper_open to boolean: {gripper_open}")
+            
+            # Determine target finger state
+            # finger_state = self.finger_open if gripper_open else self.finger_close
+            finger_state = torch.tensor(gripper_value, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
+            # finger_force = np.array([1.0, 1.0]) if gripper_open else np.array([-1.0, -1.0])
+            # Control the gripper
+            # self.robot.control_dofs_position(finger_state, self.fingers_dof)
+            # self.robot.control_dofs_force(finger_force, self.fingers_dof)
+            self.robot.set_qpos(finger_state, self.fingers_dof)
+            
+            # Update current state
+            self.gripper_state = gripper_open
+            
+            return True
+            
+        except Exception as e:
+            # Log the error
+            error_msg = f"Failed to control gripper: {e}"
+            if hasattr(self, 'get_logger'):
+                print(error_msg)
+            else:
+                print(f"ERROR: {error_msg}")
+            
             return False
