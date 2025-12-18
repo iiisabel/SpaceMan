@@ -51,8 +51,11 @@ def main():
     from sensors.wrist_camera import WristCamera
     wrist_camera = WristCamera()
 
+    from robots.merge import FrankaMerge
+    franka_merge = FrankaMerge(name="franka_merge",sensors=[], backends=[])
+
     from robots.franka import Franka
-    franka = Franka(name="franka",sensors=[], backends=[])
+    # franka = Franka(name="franka",sensors=[], backends=[])
 
     if False:
         # runtime patch: give small positive inertials to massless links
@@ -70,19 +73,18 @@ def main():
 
     # 
     GS.start()
-    franka.initialize()
+    franka_merge.initialize()
+    # franka.initialize()
     # satellite.initialize()
     # satellite.show_info()
-    # try:
-    #     GS.scene.link_entities(satellite.robot, franka.robot, "attachment", "panda_link0")
-    # except:
-    #     pass
+    joint_pos = [0, 0, 0, 0, 0, 0]
 
     while True:
-        # satellite.apply_force(force=[0.0,0.0,10.0], torque=[0.0,0.0,1000.0],link_name='base')
-        franka.step()
+        franka_merge.control_joint_pos(joint_pos)
+        # franka.step()
+        franka_merge.step()
         GS.step()
-        if not GS.viewer.is_alive(): # 
+        if not GS.viewer.is_alive(): #
             print("Viewer window has been closed.")
             break
 

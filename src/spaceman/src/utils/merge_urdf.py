@@ -6,8 +6,8 @@ import xml.etree.ElementTree as ET
 
 class URDFMerger:
     def __init__(self, urdf1_path, urdf2_path):
-        # Force it under 'spaceman'
-        output_dir = root_path /f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}"
+        # Force it under './src/spaceman/src/assets/urdf'
+        output_dir = asset_path/'urdf'/f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}"
         os.makedirs(output_dir, exist_ok=True)
 
         self.output_dir = output_dir
@@ -16,7 +16,7 @@ class URDFMerger:
         os.makedirs(self.meshes_dir, exist_ok=True)
         os.makedirs(self.textures_dir, exist_ok=True)
 
-    def _scale_robot(self, root, prefix_name, scale_factor=5.0):
+    def _scale_robot(self, root, prefix_name, child_con, scale_factor=5.0):
         print(f"\n=== SCALING ROBOT2 BY FACTOR {scale_factor} ===")
         
         scale_factor_3 = scale_factor ** 3  # 体积
@@ -290,6 +290,9 @@ class URDFMerger:
                         mimic.set('joint', f"{urdf2_name}_{mimic.get('joint')}" if not mimic.get('joint').startswith(urdf2_name) else mimic.get('joint'))
             root.append(elem)
 
+        if scale_robot is not None:
+            self._scale_robot(root, urdf2_name, child_link, scale_robot)
+
         connection_joint = ET.SubElement(root, 'joint', {
             'name': f"{urdf1_name}_{urdf2_name}_connection_joint", 
             'type': 'fixed'
@@ -307,9 +310,6 @@ class URDFMerger:
             'xyz': connection_xyz,
             'rpy': connection_rpy
         })
-
-        if scale_robot is not None:
-            self._scale_robot(root, urdf2_name, scale_robot)
 
         copied_files = self._copy_used_resources(root, urdf1_path, urdf2_path)
         self._update_resource_paths(root)
@@ -330,8 +330,8 @@ current_file_path = Path(__file__).resolve().parent
 root_path = current_file_path.parent.parent
 asset_path = root_path / 'src' / 'assets'
 
-urdf1_path = asset_path / 'urdf' / 'satellite' / 'urdf' / 'satellite.urdf'
-urdf2_path = asset_path / 'urdf' / 'panda_bullet' / 'panda.urdf'
+urdf1_path = asset_path / 'urdf' / 'starlink' / 'urdf' / 'starlink.urdf'
+urdf2_path = asset_path / 'urdf' / 'qf_space_manipulator' / 'urdf' / 'qf_space_manipulator.urdf'
 
 urdf_merger = URDFMerger(urdf1_path, urdf2_path)
 merged_urdf_path = urdf_merger.merge_urdfs(
@@ -340,10 +340,10 @@ merged_urdf_path = urdf_merger.merge_urdfs(
     urdf1_name = os.path.splitext(os.path.basename(urdf1_path))[0], 
     urdf2_name = os.path.splitext(os.path.basename(urdf2_path))[0], 
     output_name = f"{os.path.splitext(os.path.basename(urdf1_path))[0]}_combine_{os.path.splitext(os.path.basename(urdf2_path))[0]}",
-    parent_link = 'attachment',
-    child_link = 'panda_link0',
-    connection_xyz = '0 0 1.0',
-    connection_rpy = '0 0 0',
-    scale_robot = 3.0
+    parent_link = 'base_star_link',
+    child_link = 'base_link',
+    connection_xyz = '-0.87 1.05 0',
+    connection_rpy = '0 0 1.574',
+    scale_robot = 0.6
 )
 

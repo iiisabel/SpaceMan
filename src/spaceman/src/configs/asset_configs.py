@@ -1,20 +1,22 @@
+import sys
 from pathlib import Path
 import genesis as gs
 
 current_file_path = Path(__file__).resolve().parent
+sys.path.append(str(current_file_path))
+from configs.config_starlink_manipulator import FRANKA_S_Q_CONFIG, _make_starlink_manipulator
+
 root_path = current_file_path.parent.parent
 asset_path = root_path / 'src' / 'assets'
 
 # path -> forward-slash string for URDF loaders
 to_posix = lambda p: p.as_posix()
 
-# Attention to this : now test satellie_combine_panda on franka.py
-_s_urdf = root_path / 'satellite_combine_panda' / 'satellite_combine_panda.urdf'
 # lazy factory; constructs after gs.init()
 def _make_franka_urdf():
     return {
         "morph": gs.morphs.URDF(
-            file=to_posix(_s_urdf),   # file="urdf/panda_bullet/panda.urdf",
+            file="urdf/panda_bullet/panda.urdf",
             pos=(-0.3, 0.0, 0.0),
             euler=(0, 0, 0),
             merge_fixed_links=False,
@@ -80,6 +82,7 @@ def _make_satellite_part():
 _ASSET_FACTORIES = {
     "franka": _make_franka_urdf,
     "satellite": _make_satellite,
+    "franka_merge":_make_starlink_manipulator,
     # "satellite_part": _make_satellite_part,
     # "franka_mjcf": _make_franka_mjcf,
 }

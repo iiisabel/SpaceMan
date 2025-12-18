@@ -7,6 +7,7 @@ import torch
 
 import rclpy
 from rclpy.node import Node
+from sensor_msgs.msg import JointState
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from std_msgs.msg import Header, Float64
 
@@ -71,10 +72,10 @@ class SatelliteOneArm(Node):
         from robots.robot import Robot
         self.satellite = Robot(name="satellite")
         
-        try:
-            self.gsim.scene.link_entities(self.satellite.robot, self.franka.robot, "attachment", "panda_link0")
-        except:
-            pass
+        # try:
+        #     self.gsim.scene.link_entities(self.satellite.robot, self.franka.robot, "attachment", "panda_link0")
+        # except:
+        #     pass
 
         self.device = self.gsim.device
         self.datatype = self.gsim.datatype

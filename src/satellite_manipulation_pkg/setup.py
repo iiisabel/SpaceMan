@@ -24,7 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'satellite_onearm_node = satellite_manipulation_pkg.satellite_onearm_node:main'
+            'satellite_onearm_node = satellite_manipulation_pkg.satellite_onearm_node:main',
+            'starlink_manipulator_node = satellite_manipulation_pkg.starlink_manipulator_node:main'
         ],
     },
 )
