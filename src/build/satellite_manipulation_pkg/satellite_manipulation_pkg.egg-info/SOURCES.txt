@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/PKG-INFO
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/SOURCES.txt
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/dependency_links.txt
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/entry_points.txt
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/requires.txt
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/top_level.txt
+../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/zip-safe
+resource/satellite_manipulation_pkg
+satellite_manipulation_pkg/__init__.py
+satellite_manipulation_pkg/satellite_onearm_node.py
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
