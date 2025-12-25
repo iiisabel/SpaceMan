@@ -8,7 +8,7 @@ from pathlib import Path
 current_file_path = Path(__file__).resolve().parent
 sys.path.append(str(current_file_path.parent))
 from envs.genesis_env import GenesisSim
-from configs.asset_configs import get_asset
+from configs.asset_configs import get_asset, get_configs
 from utils.singlelink_state import SingleLinkState
 
 
@@ -27,6 +27,7 @@ class Robot:
         
         # entity, config = parse_asset_config(ASSETS, name)
         asset = get_asset(name)
+        self.params = get_configs(name)
         self.robot = self._scene.add_entity(**asset)
         self._links = []
         self._get_links()
