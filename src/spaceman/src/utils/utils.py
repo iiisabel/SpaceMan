@@ -285,7 +285,7 @@ def as_transform_matrix(position, quaternion, order="wxyz"):
     return transform_matrix
 
 def quaternion_conjugate(q, order="xyzw"):
-    """四元数共轭 [qx, qy, qz, qw] -> [-qx, -qy, -qz, qw]"""
+    """[qx, qy, qz, qw] -> [-qx, -qy, -qz, qw]"""
     if order in ["xyzw", "qxqyqzqw"]:
         return torch.tensor([-q[0], -q[1], -q[2], q[3]], 
                         dtype=q.dtype, device=q.device)
@@ -294,7 +294,7 @@ def quaternion_conjugate(q, order="xyzw"):
                         dtype=q.dtype, device=q.device)
 
 def quaternion_multiply(q1, q2):
-    """四元数乘法, [qx, qy, qz, qw]"""
+    """[qx, qy, qz, qw]"""
     x1, y1, z1, w1 = q1[0], q1[1], q1[2], q1[3]
     x2, y2, z2, w2 = q2[0], q2[1], q2[2], q2[3]
     

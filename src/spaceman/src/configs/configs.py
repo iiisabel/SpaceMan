@@ -1,11 +1,18 @@
-# Define the default settings for the simulation APP
+# Modified.
+"""
+Default simulation application settings.
+
+This module defines default configurations for the simulation environment,
+including scene setup, camera settings, and general application parameters.
+"""
+
 import genesis as gs
 
 from pathlib import Path
-current_file_path = Path(__file__).resolve().parent
-root_path = str(current_file_path.parent.parent)  # '/home/lianxin/SpaceArmLab'
-asset_path = root_path + '/src/assets/'
-
+_current_file_path = Path(__file__).resolve().parent
+_ROOT_PATH = _current_file_path.parent.parent
+_ASSET_PATH = _ROOT_PATH / 'src' / 'assets'
+ASSET_PATH_STR = str(_ASSET_PATH)
 
 APP_SETTINGS = {
     "seed": 0,
@@ -49,3 +56,8 @@ TPV_CAM_SETTINGS = {
     }
 }
 
+__all__ = [
+    'APP_SETTINGS',
+    'SCENE_SETTINGS', 
+    'TPV_CAM_SETTINGS',
+]

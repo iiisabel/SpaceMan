@@ -12,9 +12,11 @@ sys.path.append(str(current_file_path.parent))
 from robots.robot import Robot
 from robots.franka import Franka
 from envs.genesis_env import GenesisSim
+from utils.singlelink_state import SingleLinkState
 from utils.twolink_state import TwoLinkState
 from utils.utils import convert_dict_to_tensors
-from configs.asset_configs import starlink_manipulator_FRANKA_CONFIG
+from configs.asset_configs import FRANKA_S_Q_CONFIG
+from controllers.smooth_IK_solver import SmoothIKSolver
 
 class FrankaMerge(Franka):
     def __init__(
@@ -41,8 +43,9 @@ class FrankaMerge(Franka):
         self.base = self.robot.get_link("starlink_base_star_link")
         
         # Need to modify FRANKA_CONFIG for starlink_combine_qf_space_manipulator
-        self.config = convert_dict_to_tensors(starlink_manipulator_FRANKA_CONFIG, self.datatype, self.device)
+        self.config = convert_dict_to_tensors(FRANKA_S_Q_CONFIG, self.datatype, self.device)
 
+        # self._base_state = SingleLinkState()
         self.ee_state = TwoLinkState(device=self.device)
         
         self.joints_name = (
@@ -63,16 +66,52 @@ class FrankaMerge(Franka):
         )
         
         motors_dof_idx = [self.robot.get_joint(name).dofs_idx_local[0] for name in self.joints_name]
+        print(motors_dof_idx)
 
         self.motors_dof = motors_dof_idx[:6]
         self.fingers_dof = motors_dof_idx[6:]
 
         self.config_gripper_joints = torch.tensor([-1, 1, -1, 1, -1, -1])
         
-        self.finger_open = torch.tensor(-0.2, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
-        self.finger_close = torch.tensor(0.4, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
+        # self.finger_open = torch.tensor(-0.2, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
+        # self.finger_close = torch.tensor(0.4, dtype=self.datatype, device=self.device).expand(6)*self.config_gripper_joints
         self.gripper_state = True  # True for hand open
-    
+
+    def initialize(self):
+        """After the scene is built."""
+        # Initialize Franka robot's configuration
+        self.set_config(self.config, self.motors_dof, self.fingers_dof)
+
+        # Initialize base and end effector's position and attitude
+        self.update_state()
+        # print(self.ee_state)
+
+        self.IK = SmoothIKSolver(
+            robot=self.robot, 
+            end_effector=self.end_effector,
+            smooth_factor=0.3, 
+            max_joint_change=0.05,
+        )
+
+    def set_config(self, config, motors_dof, fingers_dof):
+        def to_list(x):
+            if isinstance(x, torch.Tensor):
+                return x.detach().cpu().tolist()
+            if isinstance(x, (np.ndarray, list, tuple)):
+                return list(x)
+            return [float(x)]
+
+        kp    = to_list(config["control"]["kp"])
+        kv    = to_list(config["control"]["kv"])
+        frmin = to_list(config["control"]["force_range_min"])
+        frmax = to_list(config["control"]["force_range_max"])
+        init  = to_list(config["initial_dofs"])
+
+        self.robot.set_dofs_kp(kp, motors_dof+fingers_dof)
+        self.robot.set_dofs_kv(kv, motors_dof+fingers_dof)
+        self.robot.set_dofs_force_range(frmin, frmax, motors_dof+fingers_dof)
+        self.robot.set_dofs_position(init, motors_dof+fingers_dof)
+        self.robot.set_dofs_velocity([0.0] * len(init), motors_dof+fingers_dof)
 
     def control_joint_pos(self, joint_position):
         """

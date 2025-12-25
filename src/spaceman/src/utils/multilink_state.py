@@ -8,7 +8,7 @@ try:
     from .state_vectors import StateVectors
     from .singlelink_state import SingleLinkState
     from .utils import reorder_quaternion, quaternion_conjugate, quaternion_multiply
-except:
+except ImportError:
     from state_vectors import StateVectors
     from singlelink_state import SingleLinkState
     from utils import reorder_quaternion
