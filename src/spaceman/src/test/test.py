@@ -8,7 +8,6 @@ from pathlib import Path
 current_file_path = Path(__file__).resolve().parent
 sys.path.append(str(current_file_path.parent))
 from envs.genesis_env import GenesisSim
-from controllers.pid import PIDController
 
 def is_finite_tensor(x) -> bool:
     if isinstance(x, (list, tuple)):
@@ -53,10 +52,10 @@ def main():
     wrist_camera = WristCamera()
 
     from robots.merge import FrankaMerge
-    # franka_merge = FrankaMerge(name="franka_merge",sensors=[], backends=[])
+    franka_merge = FrankaMerge(name="franka_merge",sensors=[], backends=[])
 
     from robots.manipulator import Manipulator
-    franka = Manipulator(name="franka_merge",sensors=[], backends=[])
+    # franka = Manipulator(name="franka_merge",sensors=[], backends=[])
 
     if False:
         # runtime patch: give small positive inertials to massless links
@@ -74,40 +73,26 @@ def main():
 
     # 
     GS.start()
-    # franka_merge.initialize()
-    franka.initialize()
+    franka_merge.initialize()
+    # franka.initialize()
     # satellite.initialize()
     # satellite.show_info()
-    p_configs = [1000, 1000, 1000, 1000, 0, 0]
-    i_configs = [0, 0, 0, 0, 0, 0]
-    d_configs = [1000, 1000, 1000, 100, 0, 0]
-    setpoints = [1, 0, 0, -2, 0, 0]
-    limits = [
-    500,         # x
-    None,        # y
-    None,        # z
-    None,        # roll
-    None,        # pitch
-    None         # yaw
-]
-    pid = PIDController(P=p_configs, I=i_configs, D=d_configs, setpoint=setpoints,
-                        dt=0.01, output_limits=limits)
 
     while True:
-        # control_pos, control_orien = pid.control(
-            # pos=franka_merge.ee_state.link_parent_global_state._position,
-            # orien=franka_merge.ee_state.link_parent_global_state._orient
-        # )
-        # franka_merge.apply_force(force=control_pos, torque=control_orien, link_name='starlink_base_star_link')
+        control_pos, control_orien = franka_merge.pid.control(
+            pos=franka_merge.ee_state.link_parent_global_state._position,
+            orien=franka_merge.ee_state.link_parent_global_state._orient
+        )
+        franka_merge.apply_force(force=control_pos, torque=control_orien, link_name='starlink_base_star_link')
         # franka_merge.apply_force(force=[0.0, 10000.0, 0.0], link_name='starlink_base_star_link')
         # franka_merge.apply_force(force=[0.0, 0.0, 10000.0], torque=[1000.0, 0.0, 0.0], link_name='starlink_base_star_link')
         # franka_merge.apply_force(torque=[0.0, 1000.0, 0.0], link_name='starlink_base_star_link')
         # franka_merge.apply_force(torque=[0.0, 0.0, 1000.0], link_name='starlink_base_star_link')
 
-        # print(control_pos, control_orien)
-        # print(franka_merge.ee_state.link_parent_global_state)
-        franka.step()
-        # franka_merge.step()
+        print(control_pos, control_orien)
+        print(franka_merge.ee_state.link_parent_global_state)
+        # franka.step()
+        franka_merge.step()
         GS.step()
         if not GS.viewer.is_alive(): #
             print("Viewer window has been closed.")

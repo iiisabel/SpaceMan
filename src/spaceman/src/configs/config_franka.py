@@ -56,6 +56,23 @@ FRANKA_PARAMS = {
     "ik_params": IK_PARAMS,
 }
 
+FRANKA_PID = {
+    "name": "franka",
+    "P": [0, 0, 0, 0, 0, 0],
+    "I": [0, 0, 0, 0, 0, 0],
+    "D": [0, 0, 0, 0, 0, 0],
+    "setpoint": [0, 0, 0, 0, 0, 0],
+    "dt": 0.01,
+    "limits": [
+        None,         # x
+        None,        # y
+        None,        # z
+        None,        # roll
+        None,        # pitch
+        None         # yaw
+    ]
+}
+
 def _make_franka_urdf():
     return {
         "morph": gs.morphs.URDF(
@@ -83,6 +100,7 @@ def _make_franka_mjcf():
 
 __all__ = [
     'FRANKA_PARAMS',
+    'FRANKA_PID',
     '_make_franka_urdf',
     '_make_franka_mjcf',
 ]

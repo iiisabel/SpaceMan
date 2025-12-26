@@ -60,6 +60,23 @@ FRANKA_S_Q_PARAMS = {
     "ik_params": IK_PARAMS,
 }
 
+FRANKA_S_Q_PID = {
+    "name": "franka_meerge",
+    "P": [1000, 1000, 1000, 1000, 0, 0],
+    "I": [0, 0, 0, 0, 0, 0],
+    "D": [1000, 1000, 1000, 100, 0, 0],
+    "setpoint": [1, 0, 0, -2, 0, 0],
+    "dt": 0.01,
+    "limits": [
+        500,         # x
+        None,        # y
+        None,        # z
+        None,        # roll
+        None,        # pitch
+        None         # yaw
+    ]
+}
+
 def _make_starlink_manipulator():
     return {
         "morph": gs.morphs.URDF(
@@ -76,5 +93,6 @@ def _make_starlink_manipulator():
 
 __all__ = [
     'FRANKA_S_Q_PARAMS',
+    'FRANKA_S_Q_PID',
     '_make_starlink_manipulator',
 ]
