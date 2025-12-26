@@ -26,6 +26,40 @@ FRANKA_S_Q_CONFIG = {
     }
 }
 
+IK_PARAMS = {
+    "smooth_factor": 0.3,
+    "max_joint_change": 0.05,
+}
+
+FRANKA_S_Q_PARAMS = {
+    "name": "franka_merge",
+    "end_effector": "qf_space_manipulator_2F-Body_Link",
+    "base": "starlink_base_star_link",
+    "config": FRANKA_S_Q_CONFIG,
+    "joints": (
+        # "root_joint",
+        "qf_space_manipulator_Shoulder_link_1_yaw",
+        "qf_space_manipulator_Upper_arm_Link_1_roll",
+        "qf_space_manipulator_Mid_arm_Link_1_roll",
+        "qf_space_manipulator_Upper_wrist_Link_1_yaw",
+        "qf_space_manipulator_Upper_wrist_Link_2_roll",
+        "qf_space_manipulator_2F-Body_Link_pitch", 
+        # hand
+        "qf_space_manipulator_Finger1_2_Link_roll",
+        "qf_space_manipulator_Finger3_2_Link_roll", # all gripper joints mimic this
+        "qf_space_manipulator_Finger3_1_Link_roll",
+        "qf_space_manipulator_Finger1_1_Link_roll", # the only positive mutiplier
+        "qf_space_manipulator_Finger4_2_Link_roll",
+        "qf_space_manipulator_Finger4_1_Link_roll"
+    ),
+    "motor": 6,
+    "finger": 12,
+    "gripper_waist": [-1, 1, -1, 1, -1, -1],
+    "finger_open": [-0.2, -0.2, -0.2, -0.2, -0.2, -0.2],
+    "finger_close": [0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
+    "ik_params": IK_PARAMS,
+}
+
 def _make_starlink_manipulator():
     return {
         "morph": gs.morphs.URDF(
@@ -41,6 +75,6 @@ def _make_starlink_manipulator():
     }
 
 __all__ = [
-    'FRANKA_S_Q_CONFIG',
+    'FRANKA_S_Q_PARAMS',
     '_make_starlink_manipulator',
 ]

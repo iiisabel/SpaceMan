@@ -28,6 +28,34 @@ FRANKA_CONFIG = {
     }
 }
 
+IK_PARAMS = {
+    "smooth_factor": 0.3,
+    "max_joint_change": 0.05,
+}
+
+FRANKA_PARAMS = {
+    "name": "franka",
+    "end_effector": "panda_hand",
+    "base": "panda_link0",
+    "config": FRANKA_CONFIG,
+    "joints": (
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7",
+        "panda_finger_joint1",
+        "panda_finger_joint2",
+    ),
+    "motor": 7,
+    "finger": 9,
+    "finger_open": [0.04, 0.04],
+    "finger_close": [0.0, 0.0],
+    "ik_params": IK_PARAMS,
+}
+
 def _make_franka_urdf():
     return {
         "morph": gs.morphs.URDF(
@@ -54,7 +82,7 @@ def _make_franka_mjcf():
     }
 
 __all__ = [
-    'FRANKA_CONFIG',
+    'FRANKA_PARAMS',
     '_make_franka_urdf',
     '_make_franka_mjcf',
 ]

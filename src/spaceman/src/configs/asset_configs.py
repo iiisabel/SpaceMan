@@ -10,14 +10,23 @@ _ASSET_FACTORIES = {
     "franka_merge":_make_starlink_manipulator,
 }
 
+_ASSET_CONFIG_FACTORIES = {
+    "franka": FRANKA_PARAMS,
+    "franka_merge": FRANKA_S_Q_PARAMS,
+}
+
 def get_asset(name: str) -> dict:
     """Build asset dict lazily after gs.init()."""
     if name not in _ASSET_FACTORIES:
         raise KeyError(f"Unknown asset '{name}'. Available: {list(_ASSET_FACTORIES)}")
     return _ASSET_FACTORIES[name]()
 
+def get_configs(name: str) ->dict:
+    if name not in _ASSET_CONFIG_FACTORIES:
+        raise KeyError(f"Unknown asset '{name}'. Available: {list(_ASSET_CONFIG_FACTORIES)}")
+    return _ASSET_CONFIG_FACTORIES[name]
+
 __all__ = [
-    'FRANKA_CONFIG',
-    'FRANKA_S_Q_CONFIG',
     'get_asset',
+    'get_configs',
 ]

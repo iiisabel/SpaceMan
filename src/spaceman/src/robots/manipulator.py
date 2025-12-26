@@ -1,7 +1,7 @@
 
 import sys
 import torch
-import copy
+import logging
 import numpy as np
 import genesis as gs
 
@@ -13,10 +13,22 @@ from robots.robot import Robot
 from envs.genesis_env import GenesisSim
 from utils.twolink_state import TwoLinkState
 from utils.utils import convert_dict_to_tensors
-from configs.asset_configs import FRANKA_CONFIG
 from controllers.smooth_IK_solver import SmoothIKSolver
 
-class Franka(Robot):
+def setup_logger(name, level=logging.INFO):
+    logger = logging.getLogger(name)
+    
+    if not logger.handlers:
+        logger.setLevel(level)
+
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(level)
+        
+        logger.addHandler(console_handler)
+    
+    return logger
+
+class Manipulator(Robot):
     def __init__(
         self,
         name="franka",
@@ -30,39 +42,31 @@ class Franka(Robot):
             sensors=sensors,
             backends=backends
             )
+        # 初始化logger
+        self.logger = setup_logger(f"Franka.{name}")
         
         # Get the current world at which we want to spawn the Robot
         self.franka_name = name
         self._scene = GenesisSim().scene
         
         ### state
-        self.end_effector = self.robot.get_link("panda_hand")
-        self.base = self.robot.get_link("panda_link0")
-        self.config = convert_dict_to_tensors(FRANKA_CONFIG, self.datatype, self.device)
+        self.end_effector = self.robot.get_link(self.params["end_effector"])
+        self.base = self.robot.get_link(self.params["base"])
+        self.config = convert_dict_to_tensors(self.params["config"], self.datatype, self.device)
 
         # baselink_state = self._base_state.global_state
         self.ee_state = TwoLinkState(device=self.device) # body state是相对于机械臂baselink
         
         ### controller
-        self.joints_name = (
-            "panda_joint1",
-            "panda_joint2",
-            "panda_joint3",
-            "panda_joint4",
-            "panda_joint5",
-            "panda_joint6",
-            "panda_joint7",
-            "panda_finger_joint1",
-            "panda_finger_joint2",
-        )
+        self.joints_name = self.params["joints"]
 
         motors_dof_idx = [self.robot.get_joint(name).dofs_idx_local[0] for name in self.joints_name]
-        self.motors_dof = motors_dof_idx[:7]
-        self.fingers_dof = motors_dof_idx[7:9]
+        self.motors_dof = motors_dof_idx[:self.params["motor"]]
+        self.fingers_dof = motors_dof_idx[self.params["motor"] : self.params["finger"]]
 
         # 
-        self.finger_open = torch.tensor([0.04, 0.04],dtype=self.datatype,device=self.device)
-        self.finger_close = torch.tensor([0.0, 0.0],dtype=self.datatype,device=self.device)
+        self.finger_open = torch.tensor(self.params["finger_open"],dtype=self.datatype,device=self.device)
+        self.finger_close = torch.tensor(self.params["finger_close"],dtype=self.datatype,device=self.device)
         self.gripper_state = True # True for hand open. [TODO] update from genesis sim
 
     """
@@ -112,16 +116,16 @@ class Franka(Robot):
 
         # Initialize base and end effector's position and attitude
         self.update_state()
-        # print(self.ee_state)
+
+        self.logger.info(f"End effector state initialized: {self.ee_state}")
 
         self.IK = SmoothIKSolver(
             robot=self.robot, 
             end_effector=self.end_effector,
-            smooth_factor=0.3, 
-            max_joint_change=0.05,
+            smooth_factor=self.params["ik_params"]["smooth_factor"], 
+            max_joint_change=self.params["ik_params"]["max_joint_change"],
         )
-        # There some parameters are deleted, no need to give default value.
-
+        self.logger.info("IK solver initialized")
     
     def set_config(self, config):
         """
@@ -140,11 +144,14 @@ class Franka(Robot):
         frmax = to_list(config["control"]["force_range_max"])
         init  = to_list(config["initial_dofs"])
 
-        self.robot.set_dofs_kp(kp)
-        self.robot.set_dofs_kv(kv)
-        self.robot.set_dofs_force_range(frmin, frmax)
-        self.robot.set_dofs_position(init)
-        self.robot.set_dofs_velocity([0.0] * len(init))
+        dofs = self.motors_dof+self.fingers_dof
+
+        self.robot.set_dofs_kp(kp, dofs)
+        self.robot.set_dofs_kv(kv, dofs)
+        self.robot.set_dofs_force_range(frmin, frmax, dofs)
+        self.robot.set_dofs_position(init, dofs)
+        self.robot.set_dofs_velocity([0.0] * len(init), dofs)
+        self.logger.debug("Robot configuration applied")
 
     def update_state(self):
         # Update end effector's base's position and attitude
@@ -200,17 +207,24 @@ class Franka(Robot):
         
         # Ensure position has shape [3] and quat has shape [4]
         if position.shape[-1] != 3:
-            raise ValueError(f"Position should have shape [3], got {position.shape}")
+            error_msg = f"Position should have shape [3], got {position.shape}"
+            self.logger.error(error_msg)
+            raise ValueError(error_msg)
         if quaternion.shape[-1] != 4:
-            raise ValueError(f"Quaternion should have shape [4], got {quaternion.shape}")
+            error_msg = f"Quaternion should have shape [4], got {quaternion.shape}"
+            self.logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # Compute joints' angles under global frame
+        self.logger.debug(f"Controlling joints to position: {position}, quaternion: {quaternion}")
         
         # Compute joints' angles under global frame
         qpos = self.IK.solve(position, quaternion)
-        print("Target command: ", qpos)
+        self.logger.info(f"Target command: {qpos}")
         
         # Check for NaN values
         if torch.isnan(qpos).any():
-            print("IK solution contains NaN values, skipping joint control")
+            self.logger.warning("IK solution contains NaN values, skipping joint control")
             return False
 
         # Control joints' dofs
@@ -220,10 +234,10 @@ class Franka(Robot):
             # Optional: Get feedback for verification
             # qpos_fb = self.robot.get_qpos()
             # print("Current command: ", qpos_fb)
-            
+            self.logger.info("Joint control command executed successfully")
             return True
         except Exception as e:
-            print(f"Failed to set joint positions: {e}")
+            self.logger.error(f"Failed to set joint positions: {e}")
             return False
         
     def control_gripper(self, gripper_open):
@@ -237,11 +251,12 @@ class Franka(Robot):
             # Ensure input is boolean
             if not isinstance(gripper_open, bool):
                 gripper_open = bool(gripper_open)
-                if hasattr(self, 'get_logger'):
-                    print(f"Converted gripper_open to boolean: {gripper_open}")
+                self.logger.debug(f"Converted gripper_open to boolean: {gripper_open}")
             
             # Determine target finger state
             finger_state = self.finger_open if gripper_open else self.finger_close
+            action = "opening" if gripper_open else "closing"
+            self.logger.info(f"Gripper {action} with finger state: {finger_state}")
             # finger_force = np.array([1.0, 1.0]) if gripper_open else np.array([-1.0, -1.0])
             # Control the gripper
             # self.robot.control_dofs_position(finger_state, self.fingers_dof)
@@ -250,21 +265,17 @@ class Franka(Robot):
             
             # Update current state
             self.gripper_state = gripper_open
-            
+            self.logger.info(f"Gripper {action} completed successfully")
             return True
             
         except Exception as e:
             # Log the error
             error_msg = f"Failed to control gripper: {e}"
-            if hasattr(self, 'get_logger'):
-                print(error_msg)
-            else:
-                print(f"ERROR: {error_msg}")
-            
+            self.logger.error(error_msg)
             return False
 
     def show_info(self):
-        print("ee body state: ", self.ee_state.link_child_in_parent)
-        print("ee global state: ", self.ee_state.link_child_global_state)
-        print("base global state: ", self.ee_state.link_parent_global_state)
+        self.logger.info(f"End effector body state: {self.ee_state.link_child_in_parent}")
+        self.logger.info(f"End effector global state: {self.ee_state.link_child_global_state}")
+        self.logger.info(f"Base global state: {self.ee_state.link_parent_global_state}")
         return super().show_info()

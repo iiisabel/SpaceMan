@@ -65,8 +65,8 @@ class SatelliteOneArm(Node):
         from envs.genesis_env import GenesisSim
         self.gsim = GenesisSim()
 
-        from robots.franka import Franka
-        self.franka = Franka(name="franka",sensors=[], backends=[])
+        from robots.manipulator import Manipulator
+        self.franka = Manipulator(name="franka",sensors=[], backends=[])
 
         from robots.robot import Robot
         self.satellite = Robot(name="satellite")
