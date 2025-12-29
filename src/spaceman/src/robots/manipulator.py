@@ -168,19 +168,25 @@ class Manipulator(Robot):
 
         # Update end effector's position and attitude regard to base link
         self.ee_state.update_child_in_parent()
-
-
+    
     def step(self):
         # Update base state and then ee state of franka
         self.update_state()
 
-        # Call the update methods in sensors
         for sensor in self._sensors:
             sensor.step()
-        
-        # Call the update methods in backends
+
         for backend in self._backends:
-            backend.step(dt=None)
+            if hasattr(backend, 'update_state') and self._base_state:
+                backend.update_state(
+                    position=self.ee_state.link_parent_global_state.position, 
+                    orien=self.ee_state.link_parent_global_state.orient)
+
+            backend.step()
+
+            if hasattr(backend, 'input_reference'):
+                control_output = backend.input_reference()
+                self._apply_control_output(control_output=control_output, link_name=self.params["base"])
     
     def control_joints(self, position, quaternion):
         """

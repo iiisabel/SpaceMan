@@ -55,7 +55,7 @@ def main():
     franka_merge = FrankaMerge(name="franka_merge",sensors=[], backends=[])
 
     from robots.manipulator import Manipulator
-    # franka = Manipulator(name="franka_merge",sensors=[], backends=[])
+    # franka = Manipulator(name="franka",sensors=[], backends=[])
 
     if False:
         # runtime patch: give small positive inertials to massless links
@@ -79,20 +79,18 @@ def main():
     # satellite.show_info()
 
     while True:
-        control_pos, control_orien = franka_merge.pid.control(
-            pos=franka_merge.ee_state.link_parent_global_state._position,
-            orien=franka_merge.ee_state.link_parent_global_state._orient
-        )
-        franka_merge.apply_force(force=control_pos, torque=control_orien, link_name='starlink_base_star_link')
+        # franka_merge.apply_force(force=control_pos, torque=control_orien, link_name='starlink_base_star_link')
         # franka_merge.apply_force(force=[0.0, 10000.0, 0.0], link_name='starlink_base_star_link')
         # franka_merge.apply_force(force=[0.0, 0.0, 10000.0], torque=[1000.0, 0.0, 0.0], link_name='starlink_base_star_link')
         # franka_merge.apply_force(torque=[0.0, 1000.0, 0.0], link_name='starlink_base_star_link')
         # franka_merge.apply_force(torque=[0.0, 0.0, 1000.0], link_name='starlink_base_star_link')
 
-        print(control_pos, control_orien)
-        print(franka_merge.ee_state.link_parent_global_state)
-        # franka.step()
+        # print(control_pos, control_orien)
+        # print(franka_merge.ee_state.link_parent_global_state)
         franka_merge.step()
+        # franka.step()
+        # satellite.apply_force(force=[100000000, 0, 0], link_name='base_link')
+        # satellite.step()
         GS.step()
         if not GS.viewer.is_alive(): #
             print("Viewer window has been closed.")

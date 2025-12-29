@@ -58,10 +58,10 @@ FRANKA_PARAMS = {
 
 FRANKA_PID = {
     "name": "franka",
-    "P": [0, 0, 0, 0, 0, 0],
+    "P": [100, 100, 100, 10, 10, 10],
     "I": [0, 0, 0, 0, 0, 0],
     "D": [0, 0, 0, 0, 0, 0],
-    "setpoint": [0, 0, 0, 0, 0, 0],
+    "setpoint": [1, 0, 0, 0, 0, 0],
     "dt": 0.01,
     "limits": [
         None,         # x
@@ -80,7 +80,7 @@ def _make_franka_urdf():
             pos=(-0.3, 0.0, 0.0),
             euler=(0, 0, 0),
             merge_fixed_links=False,
-            fixed=True,
+            fixed=False,
         ),
         "material": gs.materials.Rigid(
             gravity_compensation=1.0,

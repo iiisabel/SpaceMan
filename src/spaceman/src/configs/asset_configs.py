@@ -11,11 +11,13 @@ _ASSET_FACTORIES = {
 }
 
 _ASSET_CONFIG_FACTORIES = {
+    "satellite": SATELLITE_PARAMS,
     "franka": FRANKA_PARAMS,
     "franka_merge": FRANKA_S_Q_PARAMS,
 }
 
 _ASSET_PID_FACTORIES = {
+    "satellite": SATELLITE_PID,
     "franka": FRANKA_PID,
     "franka_merge": FRANKA_S_Q_PID,
 }
