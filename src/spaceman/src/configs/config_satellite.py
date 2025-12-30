@@ -18,6 +18,28 @@ _SATELLITE_PATHS = {
     'battery_urdf': _ASSET_PATH / 'urdf' / 'satellite_battery' / 'urdf' / 'satellite_battery.urdf',
 }
 
+SATELLITE_PARAMS = {
+    "name": "satellite",
+    "base": "base_link"
+}
+
+SATELLITE_PID = {
+    "name": "franka_meerge",
+    "P": [100000, 10000, 10000, 100000, 0, 0],
+    "I": [0, 0, 0, 0, 0, 0],
+    "D": [1000, 1000, 1000, 100, 0, 0],
+    "setpoint": [1, 0, 0, -2, 0, 0],
+    "dt": 0.01,
+    "limits": [
+        None,         # x
+        None,        # y
+        None,        # z
+        None,        # roll
+        None,        # pitch
+        None         # yaw
+    ]
+}
+
 def _make_satellite():
     return {
         "morph": gs.morphs.URDF(
@@ -47,6 +69,8 @@ def _make_satellite_part():
     }
 
 __all__ = [
+    'SATELLITE_PARAMS',
+    'SATELLITE_PID',
     '_make_satellite',
     '_make_satellite_part',
 ]

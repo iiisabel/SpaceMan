@@ -28,6 +28,51 @@ FRANKA_CONFIG = {
     }
 }
 
+IK_PARAMS = {
+    "smooth_factor": 0.3,
+    "max_joint_change": 0.05,
+}
+
+FRANKA_PARAMS = {
+    "name": "franka",
+    "end_effector": "panda_hand",
+    "base": "panda_link0",
+    "config": FRANKA_CONFIG,
+    "joints": (
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7",
+        "panda_finger_joint1",
+        "panda_finger_joint2",
+    ),
+    "motor": 7,
+    "finger": 9,
+    "finger_open": [0.04, 0.04],
+    "finger_close": [0.0, 0.0],
+    "ik_params": IK_PARAMS,
+}
+
+FRANKA_PID = {
+    "name": "franka",
+    "P": [100, 100, 100, 10, 10, 10],
+    "I": [0, 0, 0, 0, 0, 0],
+    "D": [0, 0, 0, 0, 0, 0],
+    "setpoint": [1, 0, 0, 0, 0, 0],
+    "dt": 0.01,
+    "limits": [
+        None,         # x
+        None,        # y
+        None,        # z
+        None,        # roll
+        None,        # pitch
+        None         # yaw
+    ]
+}
+
 def _make_franka_urdf():
     return {
         "morph": gs.morphs.URDF(
@@ -35,7 +80,7 @@ def _make_franka_urdf():
             pos=(-0.3, 0.0, 0.0),
             euler=(0, 0, 0),
             merge_fixed_links=False,
-            fixed=True,
+            fixed=False,
         ),
         "material": gs.materials.Rigid(
             gravity_compensation=1.0,
@@ -54,7 +99,8 @@ def _make_franka_mjcf():
     }
 
 __all__ = [
-    'FRANKA_CONFIG',
+    'FRANKA_PARAMS',
+    'FRANKA_PID',
     '_make_franka_urdf',
     '_make_franka_mjcf',
 ]
