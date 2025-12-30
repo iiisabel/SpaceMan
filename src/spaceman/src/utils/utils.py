@@ -305,3 +305,10 @@ def quaternion_multiply(q1, q2):
     
     return torch.stack([x, y, z, w])
 
+def map_to_range(x, x_close, x_open, new_close, new_open):
+    x_bool = x_close<=x_open
+    new_bool = new_close<=new_open
+    if x_bool==new_bool:
+        return new_close + (x-x_close)/(x_open-x_close)*(new_open-new_close)
+    else:
+        return new_open - (x-x_close)/(x_open-x_close)*(new_open-new_close)

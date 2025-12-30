@@ -10,7 +10,7 @@ sys.path.append(str(current_file_path.parent))
 from robots.manipulator import Manipulator
 from envs.genesis_env import GenesisSim
 from utils.twolink_state import TwoLinkState
-from utils.utils import convert_dict_to_tensors
+from utils.utils import convert_dict_to_tensors,map_to_range
 from controllers.smooth_IK_solver import SmoothIKSolver
 
 def setup_logger(name, level=logging.INFO):
@@ -65,7 +65,7 @@ class FrankaMerge(Manipulator):
         
         self.finger_open = torch.tensor(self.params["finger_open"], dtype=self.datatype, device=self.device)*self.config_gripper_joints
         self.finger_close = torch.tensor(self.params["finger_close"], dtype=self.datatype, device=self.device)*self.config_gripper_joints
-        self.gripper_state = True  # True for hand open
+        self.gripper_state = self.params["finger_open"][0]  # True for hand open
         self.logger.info("FrankaMerge robot initialization completed")
 
     def initialize(self):
@@ -122,7 +122,7 @@ class FrankaMerge(Manipulator):
         except Exception as e:
             self.logger.error(f"Failed to set joint positions: {e}")
             return False
-
+    
     def control_gripper(self, gripper_open, gripper_value):
         """
         Control the gripper to open or close.
@@ -137,6 +137,7 @@ class FrankaMerge(Manipulator):
                 self.logger.debug(f"Converted gripper_open to boolean: {gripper_open}")
             
             action = "open" if gripper_open else "close"
+            gripper_value = map_to_range(gripper_value, 0, 1, self.params["finger_close"][0], self.params["finger_open"][0])
             self.logger.info(f"Controlling gripper {action}, gripper_value={gripper_value}")
             
             # Determine target finger state
@@ -150,7 +151,7 @@ class FrankaMerge(Manipulator):
             self.robot.set_qpos(finger_state, self.fingers_dof)
             
             # Update current state
-            self.gripper_state = gripper_open
+            self.gripper_state = gripper_value
             self.logger.info(f"Gripper {action} control completed")
             return True
             

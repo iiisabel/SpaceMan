@@ -19,7 +19,7 @@ workspace_src_path = current_file_path.parent.parent
 # workspace_src_path = "/home/lianxin/Projects/SpaceMan_ws"
 spaceman_path = workspace_src_path.joinpath("spaceman/src")
 sys.path.append(str(spaceman_path))
-
+from utils.utils import map_to_range
 
 class StarlinkManipulator(Node):
     def __init__(self):
@@ -49,7 +49,9 @@ class StarlinkManipulator(Node):
         
         # 使用定时器
         self.simulation_timer = self.create_timer(0.1, self.timer_callback)  # 10Hz
-        
+        self.gripper = 1.0
+        self.gripper_value = -0.2
+        self.gripper_state = True
         self.joint_direction = [-1, 1, -1, 1, 1, 1] # 前三确定
 
         # 状态变量
@@ -92,7 +94,7 @@ class StarlinkManipulator(Node):
         # shuting down
         print("Viewer window has been closed.")
         self.gsim.stop()
-
+    
     def timer_callback(self):
         """模拟步进函数，由定时器触发"""
         if not self.gsim.viewer.is_alive():
@@ -169,10 +171,10 @@ class StarlinkManipulator(Node):
             gripper_value = gripper_state.item()
         else:  # 如果是 Python bool
             gripper_value = gripper_state
-        
+        # print(gripper_state,gripper_value)
         # 创建Float64消息
         gripper_msg = Float64()
-        gripper_msg.data = 1.0 if gripper_value else 0.0
+        gripper_msg.data = float(gripper_value)
         
         # 发布消息
         self.gripper_state_pub.publish(gripper_msg)
@@ -192,6 +194,7 @@ class StarlinkManipulator(Node):
             # 提取位置信息并转换为 torch tensor
             joint_tensor = torch.tensor(self.joint_positions, dtype=self.datatype, device=self.device)
             self.franka_merge.control_joint_pos(joint_tensor)
+            self.franka_merge.control_gripper(self.gripper, self.gripper_value)
         except Exception as e:
             self.get_logger().error(f"Joint state callback error: {e}")
 
@@ -209,10 +212,11 @@ class StarlinkManipulator(Node):
     def get_gripper_state(self):
         try:
             gripper_value = self.msg_positions[6]
-            if self.gripper_state and gripper_value<=-1.37:
-                self.gripper_state = False
-            elif not self.gripper and gripper_value >= -0.7:
-                self.gripper = True
+            # if self.gripper_state and gripper_value <= 0.1:   # wx250s: <=-1.37
+            #     self.gripper_state = False
+            # elif not self.gripper_state and gripper_value >= 0.9:  # wx250s: >=-0.7
+            #     self.gripper_state = True
+            self.gripper_value = map_to_range(gripper_value, -0.7, -1.37, 0.0, 1.0)
         except Exception as e:
             error_msg = f"Error updating gripper state: {e}"
             if hasattr(self, 'get_logger'):
@@ -220,7 +224,7 @@ class StarlinkManipulator(Node):
             else:
                 print(f"ERROR: {error_msg}")
         self.get_logger().info(
-            f"gripper state = Open" if self.gripper==1.0 else "gripper state = Close"
+            f"gripper state = Open" if self.gripper_state else "gripper state = Close"
         )
 
     def joint_command_callback(self, msg):
@@ -250,31 +254,6 @@ class StarlinkManipulator(Node):
         except Exception as e:
             # 错误处理
             error_msg = f"Error processing PoseStamped command: {e}"
-            if hasattr(self, 'get_logger'):
-                self.get_logger().error(error_msg)
-            else:
-                print(f"ERROR: {error_msg}")
-    
-    def gripper_command_callback(self, msg):
-        """
-        将接收到的 Float64 消息转换为布尔值并控制夹爪
-        Args:
-            msg: std_msgs.msg.Float64 消息
-        """
-        try:
-            # 提取浮点数值
-            gripper_value = msg.data
-            
-            # 将浮点数转换为布尔值
-            # 通常约定：> 0.5 为打开，<= 0.5 为关闭
-            gripper_open = gripper_value > 0.5
-            
-            # 调用夹爪控制函数
-            self.franka_merge.control_gripper(gripper_open)
-
-        except Exception as e:
-            # 错误处理
-            error_msg = f"Error processing gripper command: {e}"
             if hasattr(self, 'get_logger'):
                 self.get_logger().error(error_msg)
             else:

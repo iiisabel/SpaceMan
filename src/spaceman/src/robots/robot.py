@@ -183,7 +183,7 @@ class Robot:
             
             if force is not None or torque is not None:
                 self.apply_force(force=force, torque=torque, link_name=link_name)
-                print(force, torque)
+                # print(force, torque)
 
     def stop(self):
         self.logger.info("Stopping robot sensors and backends")
@@ -242,7 +242,7 @@ class Robot:
         if torque_tensor is not None:
             self._scene.sim.rigid_solver.apply_links_external_torque(torque=torque_tensor, links_idx=link_idx)
             self.logger.debug(f"Applied torque {torque_tensor.squeeze().tolist()} to link '{link_name}' (ID: {link_idx})")
-        print("Yes")
+        # print("Yes")
         
     def _format_wrench_input(self, vec):
         if vec is None:

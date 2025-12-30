@@ -62,6 +62,8 @@ class GelloControl(Node):
             # 直接从 GELLO 硬件读取当前关节状态
             # 由于 GelloAgent.act 内部仅使用 self._robot.get_joint_state()，传空字典即可
             action = self.agent.act(obs={})
+            if len(action) > 0:
+                action[-1] = 1.0 - action[-1]
             
             # 封装并发布 JointState 消息
             self._send_ros_msg(action)
