@@ -49,9 +49,9 @@ class KeyboardControl(Node):
         )
         self.initialize()
 
-        # 使用定时器而不是阻塞循环
+        # 使用定时器
         self.control_timer = self.create_timer(0.05, self.control_update)  # 20Hz 控制更新
-        self.running = True
+        
 
     def initialize(self):
         # === 初始化pygame ===
@@ -61,7 +61,7 @@ class KeyboardControl(Node):
         self.font = pygame.font.Font(None, 26)
 
         # === 位姿参数 ===
-        self.init_pos = np.array([0.3, 0.0, 0.2]) # 初始末端位置
+        self.init_pos = np.array([-1.38, 1.53, 0.48]) # 初始末端位置
         self.pos = self.init_pos.copy()
         self.init_quat = np.array([1.0, 0.0, 0.0, 0.0]) # 初始末端姿态 [w,x,y,z]
         self.rot = R.from_quat(self.init_quat, scalar_first=True)
@@ -376,7 +376,7 @@ class KeyboardControl(Node):
             self.control_timer.cancel()
 
         pygame.quit()
-        # sys.exit()
+        sys.exit()
 
     def destroy_node(self):
         """重写销毁方法，确保资源清理"""
@@ -398,6 +398,7 @@ class KeyboardControl(Node):
         定时器回调：更新当前状态并执行控制逻辑
         """
         if not self.running:
+            self.exit_program()
             return
             
         try:
@@ -408,8 +409,7 @@ class KeyboardControl(Node):
         except KeyboardInterrupt:
             # 关机
             print("Program is shutting down!")
-        finally:
-            sys.exit()
+            self.exit_program()
 
 
 def main():
@@ -419,7 +419,7 @@ def main():
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        node.get_logger().info("Keyboard control node interrupted by user")
+        pass
     finally:
         node.destroy_node()
         rclpy.shutdown()

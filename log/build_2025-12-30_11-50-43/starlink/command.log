@@ -1,0 +1,2 @@
+Invoking command in '/home/robotarm/SpaceMan/build/starlink': CONDA_PROMPT_MODIFIER=(genesis_env) /usr/bin/cmake /home/robotarm/SpaceMan/src/spaceman/src/assets/urdf/starlink -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/robotarm/SpaceMan/install/starlink
+Invoked command in '/home/robotarm/SpaceMan/build/starlink' returned '1': CONDA_PROMPT_MODIFIER=(genesis_env) /usr/bin/cmake /home/robotarm/SpaceMan/src/spaceman/src/assets/urdf/starlink -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/robotarm/SpaceMan/install/starlink

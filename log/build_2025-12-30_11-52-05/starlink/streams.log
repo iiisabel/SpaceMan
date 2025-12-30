@@ -1,0 +1,4 @@
+[0.762s] Invoking command in '/home/robotarm/SpaceMan/build/starlink': CONDA_PROMPT_MODIFIER=(genesis_env) /usr/bin/cmake /home/robotarm/SpaceMan/src/spaceman/src/assets/urdf/starlink -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/robotarm/SpaceMan/install/starlink
+[0.784s] [0mCMake Error: The source directory "/home/robotarm/SpaceMan/src/spaceman/src/assets/urdf/starlink" does not appear to contain CMakeLists.txt.
+[0.784s] Specify --help for usage, or press the help button on the CMake GUI.[0m
+[0.786s] Invoked command in '/home/robotarm/SpaceMan/build/starlink' returned '1': CONDA_PROMPT_MODIFIER=(genesis_env) /usr/bin/cmake /home/robotarm/SpaceMan/src/spaceman/src/assets/urdf/starlink -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/robotarm/SpaceMan/install/starlink

@@ -25,7 +25,9 @@ setup(
     entry_points={
         'console_scripts': [
             'keyboard_control_node = remote_control_pkg.keyboard_control_node:main',
-            'master_control_node = remote_control_pkg.master_control_node:main'
+            'widowx250s_ee_contorl_node = remote_control_pkg.widowx250s_ee_contorl_node:main',
+            'gello_control_node = remote_control_pkg.gello_control_node:main',
+
         ],
     },
 )

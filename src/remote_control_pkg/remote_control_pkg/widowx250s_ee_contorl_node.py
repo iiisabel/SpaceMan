@@ -16,9 +16,9 @@ from std_msgs.msg import Float64
 from interbotix_xs_modules.xs_robot.arm import InterbotixManipulatorXS
 import modern_robotics as mr
 
-class MasterEndControl(Node):
+class WidowX250sEndControl(Node):
     def __init__(self):
-        super().__init__('master_ee_contorl_node')
+        super().__init__('widowx250s_ee_contorl_node')
 
         self.bot = InterbotixManipulatorXS(
             robot_model='wx250s',
@@ -195,7 +195,7 @@ class MasterEndControl(Node):
 
 def main():
     rclpy.init()
-    node = MasterEndControl()
+    node = WidowX250sEndControl()
     
     try:
         rclpy.spin(node)

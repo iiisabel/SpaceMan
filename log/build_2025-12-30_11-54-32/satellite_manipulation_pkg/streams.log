@@ -1,0 +1,30 @@
+[1.513s] Invoking command in '/home/robotarm/SpaceMan/src/satellite_manipulation_pkg': CONDA_PROMPT_MODIFIER=(genesis_env) PYTHONPATH=/home/robotarm/SpaceMan/build/satellite_manipulation_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/satellite_manipulation_pkg build --build-base /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/build install --record /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/install.log --single-version-externally-managed install_data
+[1.991s] running egg_info
+[2.025s] writing ../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/PKG-INFO
+[2.026s] writing dependency_links to ../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/dependency_links.txt
+[2.026s] writing entry points to ../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/entry_points.txt
+[2.026s] writing requirements to ../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/requires.txt
+[2.027s] writing top-level names to ../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/top_level.txt
+[2.093s] reading manifest file '../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/SOURCES.txt'
+[2.095s] writing manifest file '../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info/SOURCES.txt'
+[2.095s] running build
+[2.095s] running build_py
+[2.096s] copying satellite_manipulation_pkg/__init__.py -> /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/build/lib/satellite_manipulation_pkg
+[2.096s] copying satellite_manipulation_pkg/starlink_manipulator_node.py -> /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/build/lib/satellite_manipulation_pkg
+[2.096s] running install
+[2.103s] running install_lib
+[2.136s] copying /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/build/lib/satellite_manipulation_pkg/starlink_manipulator_node.py -> /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages/satellite_manipulation_pkg
+[2.136s] byte-compiling /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages/satellite_manipulation_pkg/__init__.py to __init__.cpython-310.pyc
+[2.137s] byte-compiling /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages/satellite_manipulation_pkg/starlink_manipulator_node.py to starlink_manipulator_node.cpython-310.pyc
+[2.139s] byte-compiling /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages/satellite_manipulation_pkg/satellite_onearm_node.py to satellite_onearm_node.cpython-310.pyc
+[2.141s] running install_data
+[2.141s] copying resource/satellite_manipulation_pkg -> /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/share/ament_index/resource_index/packages
+[2.141s] copying package.xml -> /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/share/satellite_manipulation_pkg
+[2.142s] running install_egg_info
+[2.176s] removing '/home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages/satellite_manipulation_pkg-0.0.0-py3.10.egg-info' (and everything under it)
+[2.177s] Copying ../../build/satellite_manipulation_pkg/satellite_manipulation_pkg.egg-info to /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages/satellite_manipulation_pkg-0.0.0-py3.10.egg-info
+[2.178s] running install_scripts
+[2.246s] Installing satellite_onearm_node script to /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/satellite_manipulation_pkg
+[2.247s] Installing starlink_manipulator_node script to /home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/satellite_manipulation_pkg
+[2.247s] writing list of installed files to '/home/robotarm/SpaceMan/build/satellite_manipulation_pkg/install.log'
+[2.280s] Invoked command in '/home/robotarm/SpaceMan/src/satellite_manipulation_pkg' returned '0': CONDA_PROMPT_MODIFIER=(genesis_env) PYTHONPATH=/home/robotarm/SpaceMan/build/satellite_manipulation_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robotarm/SpaceMan/install/satellite_manipulation_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/satellite_manipulation_pkg build --build-base /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/build install --record /home/robotarm/SpaceMan/build/satellite_manipulation_pkg/install.log --single-version-externally-managed install_data
